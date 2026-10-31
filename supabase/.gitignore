@@ -1,0 +1,7 @@
+# Stato locale del Supabase CLI (generato da `supabase start`/`supabase db branch`)
+.branches
+.temp
+
+# Eventuali segreti locali per `supabase functions serve --env-file supabase/.env`
+# (già coperto anche dalla regola generale ".env" nel .gitignore di root)
+.env

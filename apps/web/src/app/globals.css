@@ -1,0 +1,239 @@
+:root {
+  --bg: #0b1220;
+  --bg-elev: #131c2e;
+  --bg-elev2: #1b2740;
+  --border: #263450;
+  --text: #e6edf7;
+  --muted: #8ea2c0;
+  --accent: #4f8cff;
+  --accent-2: #33d69f;
+  --danger: #ff6b6b;
+  --gold: #ffd166;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 12px 16px 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.content { display: flex; flex-direction: column; gap: 16px; }
+
+/* header pills */
+.header-right { display: flex; gap: 8px; align-items: center; }
+.pill {
+  border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--bg-elev2); color: var(--muted);
+}
+.cash-pill.positive { color: var(--accent-2); }
+.cash-pill.negative { color: var(--danger); }
+
+/* dashboard stat grid */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stat { background: var(--bg-elev2); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.stat-k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+.stat-v { font-size: 20px; font-weight: 700; margin-top: 2px; }
+
+/* bottom tab bar */
+.tabbar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px; display: flex; gap: 4px; z-index: 50;
+  background: var(--bg-elev); border-top: 1px solid var(--border);
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+}
+.tab {
+  flex: 1; background: none; border: none; cursor: pointer; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0;
+  color: var(--muted); transition: color 0.15s ease, background 0.15s ease;
+}
+.tab.active { color: var(--accent); background: var(--bg-elev2); }
+.tab-icon { font-size: 20px; line-height: 1; }
+.tab-label { font-size: 11px; font-weight: 600; }
+.cta-sticky { position: sticky; bottom: 80px; }
+
+/* box profitto stimato (Simulazione) */
+.est-profit-box {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 14px; padding: 14px; border-radius: 12px;
+  background: var(--bg-elev2); border: 1px solid var(--border);
+}
+.est-profit-box span { color: var(--muted); font-size: 13px; }
+.est-profit-box b { font-size: 24px; font-weight: 800; }
+.est-profit-box b.pos { color: var(--accent-2); }
+.est-profit-box b.neg { color: var(--danger); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.brand { font-weight: 700; font-size: 18px; letter-spacing: 0.2px; }
+.brand span { color: var(--accent); }
+.quarter-pill {
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.card h2 { margin: 0 0 12px; font-size: 15px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; }
+
+.cash { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+.cash.positive { color: var(--accent-2); }
+.cash.negative { color: var(--danger); }
+.cash-sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+.price-value { font-size: 40px; font-weight: 800; text-align: center; letter-spacing: -1px; }
+.price-value small { font-size: 18px; color: var(--muted); font-weight: 600; }
+
+input[type="range"] {
+  width: 100%;
+  height: 36px;
+  accent-color: var(--accent);
+  margin-top: 8px;
+}
+.range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  cursor: pointer;
+  transition: transform 0.05s ease, opacity 0.2s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn.secondary { background: var(--bg-elev2); border: 1px solid var(--border); }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: right; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+tr.you td { color: var(--text); font-weight: 700; }
+tr.you td:first-child::before { content: "▸ "; color: var(--accent); }
+.pos { color: var(--accent-2); }
+.neg { color: var(--danger); }
+.rank-1 td:first-child { color: var(--gold); }
+
+.competitors { display: flex; gap: 8px; }
+.competitors .chip {
+  flex: 1;
+  background: var(--bg-elev2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+.chip .name { font-size: 12px; color: var(--muted); }
+.chip .val { font-size: 18px; font-weight: 700; }
+
+.winner-banner {
+  text-align: center;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1b2740, #263450);
+  border: 1px solid var(--gold);
+}
+.winner-banner .trophy { font-size: 40px; }
+.winner-banner .title { font-size: 20px; font-weight: 800; margin-top: 8px; }
+
+.hint { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 8px 0 0; }
+.hint.warn { color: var(--gold); }
+.hint:first-child { margin-top: 0; }
+
+/* --- Sprint 3: riepilogo decisioni sticky --- */
+.summary-sticky {
+  position: sticky;
+  top: 8px;
+  z-index: 30;
+  padding: 12px 16px;
+  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.7);
+}
+.summary-sticky h2 { margin-bottom: 8px; }
+.summary-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 5px 0; font-size: 13px;
+}
+.summary-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+.summary-row b { font-size: 13px; font-weight: 700; }
+.summary-row.muted { color: var(--muted); font-size: 12px; }
+.summary-row.muted span { opacity: 0.75; }
+
+/* --- Sprint 3: barra sotto-tab per reparto --- */
+.subtab-bar { display: flex; gap: 6px; overflow-x: auto; margin: -2px 0 -4px; }
+.subtab-pill {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 10px 12px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--bg-elev2); color: var(--muted); font-size: 13px; font-weight: 600;
+  cursor: pointer; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.subtab-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.subtab-pill.disabled { opacity: 0.55; cursor: not-allowed; }
+.subtab-pill.disabled small { font-size: 10px; font-weight: 500; }
+.risk-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.risk-dot.gold { background: var(--gold); }
+.risk-dot.danger { background: var(--danger); box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.25); }
+
+/* --- Sprint 3: card prezzo colorata dal segno del profitto stimato --- */
+.price-card { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.price-card.profit-pos { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2) inset; }
+.price-card.profit-neg { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger) inset; }
+
+/* --- Sprint 3: micro-animazione sui numeri che cambiano --- */
+@keyframes pop {
+  0% { transform: scale(0.82); opacity: 0.35; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.pop { display: inline-block; animation: pop 0.25s ease-out; }
+
+/* --- Sprint 3: banner evento di mercato a posteriori --- */
+.event-banner { border-color: var(--gold); background: linear-gradient(135deg, var(--bg-elev), var(--bg-elev2)); }
+.event-label { font-size: 18px; font-weight: 800; color: var(--gold); }
+
+.btn.mini { width: auto; padding: 10px 14px; font-size: 14px; border-radius: 12px; }
+
+.prod-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.prod-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+.prod-value { font-size: 20px; font-weight: 700; margin-top: 2px; }
+.prod-value small { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+.capacity-box {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; padding: 12px; border-radius: 12px;
+  background: var(--bg-elev2); border: 1px solid var(--border);
+}
+.capacity-box span { color: var(--muted); font-size: 13px; }
+.capacity-box b { font-size: 16px; color: var(--accent-2); }

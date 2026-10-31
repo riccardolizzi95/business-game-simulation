@@ -1,0 +1,71 @@
+{
+  "default": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+  "by_role": {
+    "project-manager": "openrouter:inclusionai/ling-3.0-flash:free",
+    "software-architect": "",
+    "game-designer": "",
+    "backend-developer": [
+      "openrouter:deepseek/deepseek-v3.2",
+      "openrouter:z-ai/glm-4.7",
+      "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "openrouter:poolside/laguna-s-2.1:free"
+    ],
+    "frontend-developer": [
+      "openrouter:deepseek/deepseek-v3.2",
+      "openrouter:z-ai/glm-4.7",
+      "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "openrouter:poolside/laguna-s-2.1:free"
+    ],
+    "tester-qa": "",
+    "code-reviewer": "",
+    "security-engineer": "",
+    "devops-platform": "openrouter:inclusionai/ling-3.0-flash:free",
+    "designer-ux": "openrouter:inclusionai/ling-3.0-flash:free",
+    "technical-writer": "openrouter:inclusionai/ling-3.0-flash:free",
+    "model-curator": "",
+    "agent-coach": "",
+    "business-operations": "",
+    "business-marketing": "",
+    "business-controlling": "",
+    "business-supply-chain": "",
+    "business-rd-prodotto": "",
+    "business-commerciale": "",
+    "business-hr": "",
+    "business-amministrativo": "",
+    "business-finance": "",
+    "business-strategy": ""
+  },
+  "by_kind": {
+    "code": [
+      "openrouter:deepseek/deepseek-v3.2",
+      "openrouter:z-ai/glm-4.7",
+      "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "openrouter:openai/gpt-oss-20b:free"
+    ],
+    "design": [
+      "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "openrouter:nvidia/nemotron-3-super-120b-a12b:free"
+    ],
+    "review": [
+      "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free"
+    ]
+  },
+  "_by_kind": "Routing per TIPO di lavoro, applicato dopo by_role: un tester-qa che scrive codice va servito da un modello di codice, non dal generalista del suo ruolo. L'ordine qui è solo l'ipotesi di partenza: model-stats.json tiene il consuntivo reale (gate verde/rosso, output parsabile o no) e riordina la catena da solo sopra le 4 osservazioni.",
+  "fallback_chain": [
+    "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+    "openrouter:inclusionai/ling-3.0-flash:free",
+    "openrouter:google/gemma-4-31b-it:free",
+    "openrouter:openai/gpt-oss-20b:free"
+  ],
+  "_fallback": "Catena di riserva comune: provata in ordine quando il modello del ruolo va in rate limit (429) o fallisce. I free tier vanno giù senza preavviso, così un 429 costa qualche secondo invece di un task perso. Un valore di by_role può essere una stringa o una lista di spec.",
+  "_policy": "Decisione utente (2026-07-26): TUTTO il team gira su OpenRouter (gratis). NON si spawnano subagent Claude per i ruoli del team. Su Claude resta solo il COORDINAMENTO GENERALE (la sessione principale), che finalizza/verifica il codice che spedisce. Vedi docs/13-modelli-agenti.md e docs/12-regole-agenti.md.",
+  "_scelte_modelli": {
+    "default (ragionamento + tutti i domini di Business)": "nvidia/nemotron-3-ultra-550b-a55b:free — massima qualità (lento ma i requisiti sono venuti ottimi).",
+    "coder (backend/frontend)": "deepseek/deepseek-v3.2 primo, z-ai/glm-4.7 come escalation dopo due fallimenti. Evitati di proposito i modelli 'thinking' per il codice: cohere/north-mini-code:free bruciava tutto il budget di output ragionando e restituiva zero caratteri (finish_reason=length).",
+    "leggeri/veloci (PM, designer-ux, devops, technical-writer)": "inclusionai/ling-3.0-flash:free.",
+    "alternative free note (2026-07-26)": "nvidia/nemotron-3-super-120b-a12b:free (più veloce del 550b), openai/gpt-oss-20b:free, google/gemma-4-31b-it:free."
+  },
+  "_guida": "Formato 'provider:modello'. Vuoto = usa 'default'. La API key sta nel .env. I task di CODICE usano deliberatamente un modello a pagamento (vedi _policy_costi): Model Curator, NON sostituirlo con un gratuito. Tutto il resto resta free.",
+  "_policy_costi": "Decisione utente (2026-07-27): usare il credito OpenRouter col miglior rapporto costo/qualita, senza vincolo di gratuita. Ripartizione: DESIGN e REVIEW restano sui modelli gratuiti, dove il consuntivo e al 100% e spendere non comprerebbe nulla. I task di CODICE partono da deepseek/deepseek-v3.2 (~0,022 $/task, provato: ha consegnato quality.ts, workforce.ts e supply.ts al primo colpo). ESCALATION: dopo due tentativi falliti si sale a z-ai/glm-4.7 (~0,061 $/task), poi si ripiega sui gratuiti. Cosi si paga di piu SOLO dove l'economico ha gia dimostrato di non farcela, invece che su ogni task. Tetto di 2 $ per sessione in session.py, letto dal saldo reale. Consumati 1,19 $ su 10."
+}

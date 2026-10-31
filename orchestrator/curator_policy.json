@@ -1,0 +1,36 @@
+{
+  "_guida": "Politica del Model Curator autonomo. Ogni ruolo appartiene a una 'fascia' (tier). Per ogni tier c'è una lista ORDINATA di candidati gratuiti su OpenRouter (senza suffisso ':free', aggiunto in automatico). Il curator, quando un modello usato non è più gratuito, sceglie il primo candidato della sua fascia ancora disponibile free. Aggiorna qui i candidati quando ne scopri di nuovi.",
+  "role_tiers": {
+    "software-architect": "reasoning",
+    "game-designer": "reasoning",
+    "tester-qa": "reasoning",
+    "code-reviewer": "reasoning",
+    "security-engineer": "reasoning",
+    "backend-developer": "coding",
+    "frontend-developer": "coding",
+    "project-manager": "light",
+    "designer-ux": "light",
+    "technical-writer": "light",
+    "devops-platform": "light"
+  },
+  "default_tier": "reasoning",
+  "tier_candidates_openrouter": {
+    "reasoning": [
+      "nvidia/nemotron-3-ultra-550b-a55b",
+      "deepseek/deepseek-r1",
+      "deepseek/deepseek-chat-v3-0324",
+      "qwen/qwen3-235b-a22b"
+    ],
+    "coding": [
+      "poolside/laguna-s-2.1",
+      "cohere/north-mini-code",
+      "qwen/qwen-2.5-coder-32b-instruct",
+      "poolside/laguna-xs-2.1"
+    ],
+    "light": [
+      "inclusionai/ling-3.0-flash",
+      "meta-llama/llama-3.3-8b-instruct",
+      "qwen/qwen3-8b"
+    ]
+  }
+}

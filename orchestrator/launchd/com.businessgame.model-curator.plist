@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Sostituire /path/to/business-game con il percorso assoluto della cartella del progetto. -->
+  <key>Label</key>
+  <string>com.businessgame.model-curator</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-lc</string>
+    <string>/path/to/business-game/orchestrator/launchd/run-curator.sh</string>
+  </array>
+
+  <!-- Ogni giorno alle 09:00. Se il Mac è spento/dormiente, launchd esegue il job
+       mancato al risveglio. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>9</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/path/to/business-game/orchestrator/curator-cron.log</string>
+  <key>StandardErrorPath</key>
+  <string>/path/to/business-game/orchestrator/curator-cron.log</string>
+</dict>
+</plist>

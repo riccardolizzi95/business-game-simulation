@@ -1,0 +1,1774 @@
+{
+  "version": 1,
+  "updated": "2026-07-29",
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "Progettare la suddivisione della UI in sezioni",
+      "role": "designer-ux",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "La UI attuale è una singola schermata a scorrimento. Progettare una navigazione a sezioni per mobile (es. tab: Cruscotto, Decisioni, Mercato, Classifica). Definire cosa va in ogni sezione, la navigazione e i principi di usabilità mobile.",
+      "acceptance": [
+        "Elenco delle sezioni con contenuto di ciascuna",
+        "Schema di navigazione (tab bar o simile) adatto a mobile",
+        "Wireframe testuale/ASCII di almeno 2 sezioni"
+      ],
+      "note": "Realizzato in Sprint 1/2 (navigazione a sezioni live in apps/web/src/app/page.tsx). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-002",
+      "title": "Piano di implementazione della navigazione a sezioni nella PWA",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-001"
+      ],
+      "description": "Sulla base del design (T-001), definire il piano tecnico per introdurre la navigazione a sezioni in Next.js (App Router) mantenendo lo stato della partita condiviso. Niente codice finale: struttura di componenti, gestione stato, e passi di implementazione.",
+      "acceptance": [
+        "Struttura dei componenti/route proposta",
+        "Strategia di gestione dello stato di gioco tra sezioni",
+        "Elenco ordinato dei passi di implementazione"
+      ],
+      "note": "Realizzato in Sprint 1/2 (5 tab inline in page.tsx con stato React condiviso). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-003",
+      "title": "Progettare la leva Distribuzione (canali)",
+      "role": "software-architect",
+      "kind": "design",
+      "status": "review",
+      "deps": [],
+      "description": "Progettare la terza leva di gioco: distribuzione tramite negozi proprietari vs retail vs online, con reach e margini diversi. Definire input di decisione, effetti sul modello di mercato (domanda raggiungibile) e nuovi parametri per il game-engine, coerenti con la formula v0.1.",
+      "acceptance": [
+        "Definizione dei canali con parametri (reach, margine, costi)",
+        "Come la distribuzione influenza domanda/vendite nel motore",
+        "Nuovi campi per PlayerDecision/EngineConfig proposti"
+      ],
+      "note": "Proposta pronta (orchestrator/proposals/T-003-software-architect.md). Volutamente FUORI dallo Sprint 3 (niente nuove leve giocabili in questo sprint). Resta in backlog per Sprint 4+; userà ADR-0007 quando pianificata (ADR-0006 è assegnato al contratto motore dello Sprint 3, vedi T-005)."
+    },
+    {
+      "id": "T-004",
+      "title": "Analisi di bilanciamento v0.1 (prezzo premium dominante)",
+      "role": "tester-qa",
+      "kind": "analysis",
+      "status": "done",
+      "deps": [],
+      "description": "Il playtest mostra che il prezzo premium rende troppo. Analizzare la causa nel modello v0.1 e proporre correzioni (es. ridistribuzione della domanda persa, tetto di domanda, revisione elasticità) con scenari di verifica.",
+      "acceptance": [
+        "Diagnosi del perché il premium domina",
+        "Almeno 2 proposte di correzione con effetti attesi",
+        "Scenari di test per validare il ribilanciamento"
+      ],
+      "note": "Analisi accettata (orchestrator/proposals/T-004-tester-qa.md). Chiusa 2026-07-26: l'implementazione della correzione (elasticità asimmetrica) è pianificata come T-009 nello Sprint 3."
+    },
+    {
+      "id": "T-005",
+      "title": "Contratto d'interfaccia del motore per Sprint 3 (seed/rumore/eventi + elasticità asimmetrica) — ADR-0006",
+      "role": "software-architect",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Ratificare in un ADR (ADR-0006) il contratto d'interfaccia proposto dal PM per sbloccare il lavoro in parallelo di backend e frontend: nuovi campi EngineConfig (demandNoisePct, marketEvents), nuova interfaccia MarketConditions, nuova funzione pura resolveMarketConditions(seed, config), nuova firma simulateQuarter(decisions, config, seed?) con vincolo 'seed assente ⇒ output identico a v0.1', e split di priceElasticity in priceElasticityBelow/priceElasticityAbove per il fix T-004. Vedi dettaglio contratto nel messaggio del PM (project-management/SPRINT-BOARD.md, Sprint 3).",
+      "acceptance": [
+        "ADR-0006 scritto in docs/05-decisioni/, coerente col codice esistente in apps/web/src/lib/game-engine/index.ts",
+        "Nomi di campi/funzioni e firme congelati (frontend e backend possono integrare in parallelo senza attendere l'implementazione)",
+        "Esplicitato il vincolo di non-regressione: senza seed il motore produce output bit-identici alla v0.1 (11 test attuali invariati)"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-006",
+      "title": "Wireframe sotto-tab reparto per Decisioni (Commerciale/Operations + teaser) e migliorie CSS",
+      "role": "designer-ux",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Progettare la suddivisione del tab Decisioni in sotto-tab per reparto: 💰 Commerciale (prezzo), 🏭 Operations (produzione), pillole 'presto' disabilitate per 🚚 Distribuzione e 📣 Marketing (teaser, non cliccabili). Definire posizione e contenuto della card Riepilogo sticky in alto e della CTA 'Chiudi il trimestre' sempre visibile indipendente dal sotto-tab. Elencare le 5 migliorie visive solo-CSS: colore slider in base al profitto stimato, badge/pallino di rischio 'capacità < domanda' sulla pillola Operations, micro-animazione sui numeri che cambiano, hint uniformati, spaziatura.",
+      "acceptance": [
+        "Wireframe/elenco salvato in docs/ (nuova sotto-sezione)",
+        "Ogni sotto-tab mappa 1:1 un campo REALE del motore attuale (price, plants, overtime)",
+        "Teaser Distribuzione/Marketing esplicitamente disabilitati, nessuna leva finta"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-007",
+      "title": "Implementare sotto-tab Decisioni + Riepilogo sticky + CTA sempre visibile + 5 migliorie CSS",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-006"
+      ],
+      "description": "In apps/web/src/app/page.tsx (tab 'decisioni'): introdurre sotto-navigazione per reparto secondo T-006, card Riepilogo sticky in cima (usa dati già calcolati in 'est'), CTA 'Chiudi il trimestre' sticky visibile da ogni sotto-tab. Poi le 5 migliorie visive in globals.css usando classi derivate da valori già calcolati (niente nuova logica di dominio nel componente).",
+      "acceptance": [
+        "Navigare tra sotto-tab non perde stato; CTA funziona da qualunque sotto-tab; Riepilogo sempre visibile",
+        "Le 5 migliorie CSS visibili, nessuna regressione funzionale",
+        "npm --prefix apps/web run build senza errori"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-008",
+      "title": "Motore — Tappa A: rumore + eventi ambientali riproducibili via seed",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-005"
+      ],
+      "description": "In apps/web/src/lib/game-engine/index.ts: aggiungere demandNoisePct e marketEvents a EngineConfig/DEFAULT_CONFIG, esportare l'interfaccia MarketConditions e la funzione pura resolveMarketConditions(seed, config), estendere simulateQuarter con un terzo parametro opzionale seed. Seed assente ⇒ path invariato rispetto a v0.1 (zero regressioni sugli 11 test esistenti). Seed presente ⇒ applica il moltiplicatore di domanda risolto da resolveMarketConditions prima del calcolo delle quote.",
+      "acceptance": [
+        "11 test esistenti verdi SENZA modifiche",
+        "Stesso seed ⇒ stesso esito (determinismo); seed diversi ⇒ esiti diversi entro il range configurato",
+        "resolveMarketConditions è pura e richiamabile indipendentemente da simulateQuarter"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-009",
+      "title": "Motore — fix T-004: elasticità di prezzo asimmetrica",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-005"
+      ],
+      "description": "In apps/web/src/lib/game-engine/index.ts: sostituire priceElasticity con priceElasticityBelow/priceElasticityAbove in EngineConfig/DEFAULT_CONFIG. Sopra il refPrice si usa l'esponente 'Above' (maggiore di 'Below') così la quota cala più rapidamente sopra il prezzo di riferimento di quanto salga sotto. Valori di default da tarare con tester-qa sulla base di orchestrator/proposals/T-004-tester-qa.md (diagnosi e proposte già pronte).",
+      "acceptance": [
+        "Test esistenti verdi (nessuno referenzia priceElasticity direttamente)",
+        "Nuovi test dimostrano l'asimmetria (scostamento uguale sopra/sotto refPrice → impatto diverso sulla quota)",
+        "Il prezzo premium non domina più negli scenari di T-004-tester-qa.md"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-010",
+      "title": "Integrare motore in UI: tab Simula a mercato neutro + tab Mercato & Rischio con evento a posteriori",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-008",
+        "T-009"
+      ],
+      "description": "Tab 'Simula': continua a chiamare simulateQuarter SENZA seed (mercato neutro, deterministico) + avviso 'stima a mercato neutro, il reale può variare'. closeQuarter(): genera un seed di trimestre, lo passa a simulateQuarter, e il tab Mercato (rinominato 'Mercato & Rischio') mostra l'esito recuperato via resolveMarketConditions(seed, CFG) — evento eventuale ed effetto sulla domanda, oltre ai dati già presenti.",
+      "acceptance": [
+        "Nessuna chiamata con seed nel tab Simula",
+        "L'evento mostrato in Mercato & Rischio corrisponde a quello realmente applicato nel trimestre chiuso (stesso seed)",
+        "npm --prefix apps/web run build senza errori"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-011",
+      "title": "Regressione motore + nuovi test + regressione E2E UI mobile",
+      "role": "tester-qa",
+      "kind": "analysis",
+      "status": "done",
+      "deps": [
+        "T-007",
+        "T-010"
+      ],
+      "description": "Verificare che gli 11 test esistenti restino invariati; scrivere nuovi test per rumore/eventi/seed e per l'asimmetria dell'elasticità (T-004); testare manualmente il flusso completo (8 trimestri) su viewport mobile: sotto-tab Decisioni, Riepilogo sticky, CTA sempre visibile, Simula neutro, Mercato & Rischio con evento a posteriori.",
+      "acceptance": [
+        "npm --prefix apps/web test verde (vecchi+nuovi test)",
+        "Checklist di test manuale documentata con esito e viewport testato",
+        "Eventuali difetti minori tracciati in BACKLOG.md"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "T-012",
+      "title": "Code review pre-merge Sprint 3",
+      "role": "code-reviewer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "T-011"
+      ],
+      "description": "Revisione dell'intero diff dello Sprint 3 (motore + UI): correttezza, coerenza con ADR-0006, vincolo 'nessuna leva finta', sicurezza (nessun segreto nel client), qualità e copertura dei test.",
+      "acceptance": [
+        "Revisione completata",
+        "Eventuali richieste di modifica risolte prima di segnare i task come Done"
+      ],
+      "closed_note": "Consegnato nello Sprint 3 (commit 1f19e09, in produzione). Chiuso 2026-07-26."
+    },
+    {
+      "id": "S4-1",
+      "title": "Regole della cassa vincolata (liquidità come vincolo di gioco)",
+      "role": "business-finance",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Definisci le REGOLE di gioco per la cassa vincolata, coerenti col motore attuale (vedi il codice nella blackboard). Devi specificare, con NUMERI concreti: capitale/cassa iniziale; quali voci muovono la cassa ogni trimestre (incassi da vendite, costi di produzione, costi fissi, straordinari); cosa succede quando la cassa scenderebbe sotto zero (es. fido oneroso con tasso, oppure produzione tagliata al massimo finanziabile); e come la cassa entra nella condizione di sconfitta. Vincolo assoluto: NON rompere il determinismo esistente e NON cambiare le formule di domanda già in produzione. Consegna un contratto preciso e implementabile: nomi dei campi, formule, casi limite.",
+      "acceptance": [
+        "Ogni regola ha numeri concreti, non descrizioni vaghe",
+        "Nomi dei campi proposti in inglese e coerenti con EngineConfig/PlayerResult esistenti",
+        "Casi limite espliciti: cassa esattamente zero, cassa negativa, primo trimestre",
+        "Dichiarato esplicitamente cosa NON cambia rispetto al motore attuale"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-2",
+      "title": "Set di KPI di controllo di gestione da esporre al giocatore",
+      "role": "business-controlling",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Definisci i KPI che il giocatore deve vedere a fine trimestre per capire come sta andando l'azienda, calcolabili SOLO da dati già presenti in PlayerResult (vedi il codice nella blackboard). Per ciascun KPI: nome in inglese, formula esatta, unità di misura, come si comporta nei casi degeneri (denominatore zero), e una soglia indicativa che distingue 'buono' da 'preoccupante'. Massimo 6 KPI: meglio pochi e leggibili che un cruscotto illeggibile su telefono.",
+      "acceptance": [
+        "Massimo 6 KPI, ciascuno con formula esatta e unità di misura",
+        "Ogni KPI è calcolabile dai campi già esistenti in PlayerResult",
+        "Comportamento nei casi degeneri (divisione per zero) specificato per ogni KPI",
+        "Soglia indicativa buono/preoccupante per ciascun KPI"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-3",
+      "title": "Motore: implementare i KPI di controllo di gestione + test",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S4-2"
+      ],
+      "description": "Implementa nel game-engine i KPI definiti dal Controlling nel task da cui dipendi (li trovi nella sezione 'Lavoro degli agenti da cui dipendi'). Aggiungi un tipo esportato per il risultato e una funzione PURA ed esportata che li calcola a partire da un PlayerResult. È un'AGGIUNTA: non modificare la logica di simulazione esistente né le firme già in produzione. Aggiungi test unitari IN CODA al file di test esistente, senza toccare i test già presenti: almeno un test per ogni KPI più i casi degeneri.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s4-3.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "Funzione e tipo di ritorno esportati dal modulo del motore",
+        "Funzione pura: nessun effetto collaterale, nessuna modifica ai risultati esistenti",
+        "Divisioni per zero gestite: mai NaN né Infinity",
+        "I 23 test esistenti restano invariati e verdi; i nuovi test coprono ogni KPI e i casi limite"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/index.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/index.ts",
+        "apps/web/src/lib/game-engine/s4-3.test.ts"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-4",
+      "title": "Motore: cassa vincolata (liquidità) in un modulo dedicato",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S4-1"
+      ],
+      "description": "Implementa la cassa vincolata secondo le regole definite da Finance nel task da cui dipendi (sezione 'Lavoro degli agenti da cui dipendi'). Crea un modulo NUOVO `apps/web/src/lib/game-engine/cash.ts` e i suoi test in `apps/web/src/lib/game-engine/cash.test.ts`. Il modulo importa i tipi da `./types` e resta PURO: niente effetti collaterali, nessuna dipendenza da DB o rete. Esporta un tipo per lo stato di cassa e una funzione che, dati i risultati di un trimestre e la cassa precedente, calcola la nuova cassa e l'eventuale scoperto secondo le regole di Finance. VINCOLO DI NON-REGRESSIONE: non modificare `simulate.ts`, i 37 test esistenti devono restare verdi e invariati. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al momento del merge. Se toccassi quel file entreresti in conflitto con gli altri agenti che stanno lavorando in parallelo su altre leve.",
+      "acceptance": [
+        "Nuovo modulo cash.ts con tipo e funzione esportati, puro e senza effetti collaterali",
+        "Casi limite di Finance coperti da test: cassa a zero, cassa negativa, primo trimestre",
+        "I 37 test esistenti restano verdi e invariati; simulate.ts non è modificato",
+        "Nessuna divisione per zero non gestita, mai NaN né Infinity"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/simulate.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/cash.ts",
+        "apps/web/src/lib/game-engine/cash.test.ts"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-5",
+      "title": "Motore: bot rivali reattivi al prezzo in un modulo dedicato",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [],
+      "description": "Oggi i rivali IA usano decisioni fisse. Rendili REATTIVI: crea un modulo NUOVO `apps/web/src/lib/game-engine/rivals.ts` e i test in `apps/web/src/lib/game-engine/rivals.test.ts`. Esporta una funzione PURA che, dato lo storico dei trimestri precedenti e un profilo di rivale, produce la sua decisione per il trimestre successivo reagendo al prezzo praticato dal giocatore: almeno un profilo aggressivo (insegue al ribasso) e uno premium (tiene il prezzo alto). Deve essere DETERMINISTICA a parità di input; se ti serve casualità usa `mulberry32` importandolo da `./market`, mai Math.random. Importa i tipi da `./types`. Non modificare `simulate.ts`: questo è un modulo di decisione che sta a monte della simulazione. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al momento del merge. Se toccassi quel file entreresti in conflitto con gli altri agenti che stanno lavorando in parallelo su altre leve.",
+      "acceptance": [
+        "Nuovo modulo rivals.ts con funzione pura esportata, deterministica a parità di input",
+        "Almeno due profili con comportamenti distinguibili, ciascuno con test dedicato",
+        "Test che verifica la reattività: prezzo del giocatore basso ⇒ il rivale aggressivo scende",
+        "Nessun uso di Math.random; simulate.ts non è modificato; i 37 test esistenti restano verdi"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/market.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/rivals.ts",
+        "apps/web/src/lib/game-engine/rivals.test.ts"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-6",
+      "title": "UI: mostrare i KPI di controlling nel Cruscotto",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [],
+      "description": "Nel Cruscotto della PWA mostra i KPI di controlling già disponibili nel motore: importa `calculateControllingKPI` e il tipo `ControllingKPI` da `@/lib/game-engine` e mostrali per il giocatore dopo la chiusura del trimestre. Attenzione: diversi KPI possono valere `null` quando non sono calcolabili (denominatore zero) — in quel caso mostra un trattino, NON 'NaN' o '0'. Formatta le percentuali come percentuali e gli importi in euro. Mobile-first: leggibile su viewport telefono, nessuna tabella che sfora in orizzontale. Rispetta lo stile dei componenti già presenti nel file. Non toccare la logica di gioco né alcun file del motore: questo task è SOLO presentazione.",
+      "acceptance": [
+        "I 6 KPI sono visibili nel Cruscotto dopo la chiusura di un trimestre",
+        "I KPI null mostrano un trattino, mai NaN, Infinity o 0 fuorviante",
+        "Layout leggibile su viewport telefono, nessuno sfondamento orizzontale",
+        "Nessun file del motore modificato; build e 37 test esistenti verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/kpis.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S4-7",
+      "title": "Code review dello Sprint 4",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "done",
+      "deps": [
+        "S4-4",
+        "S4-5",
+        "S4-6"
+      ],
+      "description": "Revisiona il lavoro dello Sprint 4 come proposto dagli agenti nei task da cui dipendi: correttezza delle formule, coerenza con l'architettura e le convenzioni del progetto, test adeguati, rischi di regressione, casi limite non coperti. Segnala esplicitamente ogni punto in cui l'implementazione si discosta dalle regole definite da Finance e Controlling. Sii specifico: file, funzione, cosa è sbagliato e perché.",
+      "acceptance": [
+        "Ogni rilievo indica file, punto preciso e motivo",
+        "Verificata la coerenza fra regole di business definite e codice prodotto",
+        "Rischi di regressione elencati esplicitamente"
+      ],
+      "closed_note": "Sprint 4 consegnato e unito a main il 2026-07-26."
+    },
+    {
+      "id": "S5-1",
+      "title": "Fix rivali: il seed deve dipendere anche dal rivalId",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [],
+      "description": "Difetto trovato dal code reviewer nello Sprint 4 e verificato: in `apps/web/src/lib/game-engine/rivals.ts` il parametro `rivalId` viene usato SOLO per popolare `playerId` nella decisione, e non entra nel generatore casuale. Conseguenza dimostrata: due rivali con lo stesso profilo e lo stesso seed producono esattamente lo stesso prezzo (verificato: 85 e 85), quindi non si distinguono fra loro. Combina `rivalId` col seed in modo DETERMINISTICO (es. una hash stabile della stringa combinata col seed) così rivali diversi divergono ma la riproducibilità a parità di input resta intatta. Aggiungi un test che verifica sia la divergenza fra rivali sia il determinismo a parità di rivalId e seed.",
+      "acceptance": [
+        "Due rivali con stesso profilo e stesso seed producono decisioni diverse",
+        "Stesso rivalId + stesso seed ⇒ stessa decisione (determinismo preservato)",
+        "Nessun uso di Math.random; hash della stringa deterministica e indipendente dalla piattaforma",
+        "I 50 test esistenti restano verdi e invariati"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/rivals.ts",
+        "apps/web/src/lib/game-engine/rivals.test.ts",
+        "apps/web/src/lib/game-engine/market.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/rivals.ts",
+        "apps/web/src/lib/game-engine/rivals.test.ts"
+      ],
+      "closed_note": "Chiuso 2026-07-26."
+    },
+    {
+      "id": "S5-2",
+      "title": "Regole del MAGAZZINO: scorte, costo di giacenza, produzione ≠ vendite",
+      "role": "business-supply-chain",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Definisci le regole di gioco del MAGAZZINO. Oggi il motore produce esattamente ciò che vende (`unitsSold = min(domanda, capacità)`) e le scorte non esistono: è irrealistico e toglie una leva gestionale importante. Devi specificare, con NUMERI concreti:\n1) la produzione diventa una DECISIONE separata dalle vendite (quanto produco, entro la capacità), non più una conseguenza della domanda;\n2) le unità prodotte e non vendute diventano SCORTE, disponibili nei trimestri successivi;\n3) il COSTO DI GIACENZA: quanto costa tenere un'unità a magazzino per un trimestre (magazzinaggio, capitale immobilizzato, assicurazione). Proponi un valore concreto e giustificalo rispetto al costo unitario di produzione (55 €) e al prezzo di riferimento (100 €). Questo è il cuore del task: senza un costo di giacenza sensato, accumulare scorte sarebbe gratis e la leva non avrebbe tensione;\n4) eventuale obsolescenza/deperimento delle scorte, se ha senso per questo mercato;\n5) se esiste un tetto massimo di magazzino e cosa succede se lo si supera.\nIl trade-off che il gioco deve far sentire: produrre in eccesso costa giacenza, produrre in difetto fa perdere vendite. Rendilo esplicito con un esempio numerico.",
+      "acceptance": [
+        "Costo di giacenza per unità/trimestre indicato con un numero e giustificato",
+        "Regole con numeri concreti, non descrizioni vaghe; nomi dei campi in inglese",
+        "Esempio numerico che mostra il trade-off sovra/sotto-produzione",
+        "Casi limite espliciti: magazzino vuoto, primo trimestre, scorte che coprono tutta la domanda",
+        "Dichiarato esplicitamente cosa NON cambia del motore attuale"
+      ],
+      "closed_note": "Chiuso 2026-07-26."
+    },
+    {
+      "id": "S5-3",
+      "title": "Impatto contabile del magazzino: valorizzazione scorte e KPI",
+      "role": "business-amministrativo",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S5-2"
+      ],
+      "description": "Partendo dalle regole di magazzino definite da Supply Chain nel task da cui dipendi, definisci l'impatto CONTABILE. In particolare: come si valorizzano le scorte a fine trimestre; dove finisce il costo di giacenza nel conto economico (è un costo del periodo, non un costo del venduto); come cambia il calcolo del profitto quando produci più di quanto vendi (il costo di produzione delle unità invendute NON deve essere spesato come costo del venduto, altrimenti i conti non tornano); e quali dei 6 KPI di Controlling già esistenti vanno ricalcolati o reinterpretati (in particolare il costo medio unitario e il margine di contribuzione, che oggi dividono per le unità vendute). Segnala se serve un KPI nuovo per la rotazione di magazzino.",
+      "acceptance": [
+        "Regola esplicita di valorizzazione delle scorte con formula",
+        "Chiarito dove finiscono costo di giacenza e costo delle unità invendute nel calcolo del profitto",
+        "Elencati i KPI esistenti da ricalcolare, con la formula corretta aggiornata",
+        "I conti tornano: un esempio numerico completo su due trimestri lo dimostra"
+      ],
+      "closed_note": "Chiuso 2026-07-26."
+    },
+    {
+      "id": "S5-6",
+      "title": "UI: soglie buono/preoccupante sui KPI del Cruscotto",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [],
+      "description": "Il Cruscotto mostra i 6 KPI di Controlling ma solo come numeri nudi: un EBITDA del 28,3% non dice al giocatore se sta andando bene o male. Aggiungi un indicatore visivo di soglia accanto a ciascun KPI, usando le soglie definite dal Controlling (le trovi in `orchestrator/proposals/S4-2-business-controlling.md`, ad esempio EBITDA buono ≥15%, preoccupante <5%). Usa colore E un simbolo/etichetta testuale: il colore da solo non basta per chi non lo distingue. I KPI con valore `null` non devono mostrare alcuna soglia (dato non calcolabile ≠ dato pessimo). Mobile-first, coerente con lo stile esistente. NON toccare la logica di gioco né i file del motore: è solo presentazione.",
+      "acceptance": [
+        "Ogni KPI calcolabile mostra il suo stato rispetto alle soglie del Controlling",
+        "Lo stato è distinguibile senza affidarsi al solo colore (simbolo o etichetta)",
+        "I KPI null non mostrano soglia né stato",
+        "Nessun file del motore modificato; build e test esistenti verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/kpis.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Chiuso 2026-07-26."
+    },
+    {
+      "id": "S5-4",
+      "title": "Motore: modulo magazzino (scorte + costo di giacenza)",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "abandoned",
+      "deps": [
+        "S5-2",
+        "S5-3"
+      ],
+      "description": "Crea il modulo NUOVO `apps/web/src/lib/game-engine/inventory.ts` e i test in `apps/web/src/lib/game-engine/inventory.test.ts`, secondo le regole definite da Supply Chain e Amministrazione nei task da cui dipendi (sezione 'Lavoro degli agenti da cui dipendi'). Il modulo deve essere PURO e deterministico, importare i tipi da `./types` e NON dipendere da `simulate.ts`. Esporta: un tipo per lo stato di magazzino, la funzione che dato (scorte iniziali, unità prodotte, unità vendute) calcola le scorte finali, e la funzione che calcola il COSTO DI GIACENZA del trimestre con il valore stabilito da Supply Chain. Gestisci i casi limite: scorte a zero, vendite superiori alla produzione (si attinge alle scorte), eventuale tetto di magazzino. Non modificare nessun file esistente del motore. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge. Toccarlo ti metterebbe in conflitto con gli altri agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Nuovo modulo inventory.ts, puro e deterministico, con tipi e funzioni esportati",
+        "Costo di giacenza calcolato secondo il valore definito da Supply Chain",
+        "Test per: magazzino vuoto, accumulo scorte, prelievo dalle scorte, eventuale tetto",
+        "Nessun file esistente del motore modificato; i test esistenti restano verdi e invariati"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/simulate.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/inventory.ts",
+        "apps/web/src/lib/game-engine/inventory.test.ts"
+      ],
+      "closed_note": "Superato da S5-9/S5-10 (magazzino rifatto e rilasciato). Non riprendere."
+    },
+    {
+      "id": "S5-5",
+      "title": "Motore: integrare il magazzino nella simulazione del trimestre",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "abandoned",
+      "deps": [
+        "S5-4"
+      ],
+      "description": "Integra il modulo `inventory.ts` (creato nel task da cui dipendi) dentro `apps/web/src/lib/game-engine/simulate.ts`. La produzione diventa una decisione: aggiungi a `PlayerDecision` un campo OPZIONALE per le unità da produrre e a `PlayerResult` i campi per scorte finali e costo di giacenza. La logica diventa: disponibile = scorte iniziali + prodotto; vendite = min(domanda, disponibile); scorte finali = disponibile − vendite; il costo di giacenza entra fra i costi del trimestre secondo le regole di Amministrazione, e il costo di produzione delle unità INVENDUTE non va spesato come costo del venduto.\n\nVINCOLO DI NON-REGRESSIONE ASSOLUTO: se il nuovo campo di produzione è assente (undefined), il comportamento deve restare IDENTICO a oggi — stessa identica logica `unitsSold = min(domanda, capacità)`, scorte 0, costo di giacenza 0. È lo stesso schema già usato per il parametro `seed`. Tutti i test esistenti devono passare SENZA essere modificati: se ne modifichi anche uno, hai sbagliato approccio. Aggiungi i nuovi test in coda a `apps/web/src/lib/game-engine/engine.test.ts`. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge. Toccarlo ti metterebbe in conflitto con gli altri agenti che lavorano in parallelo.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s5-5.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "Senza il campo produzione il comportamento è identico a oggi: test esistenti verdi e INVARIATI",
+        "Con il campo produzione: scorte accumulate, riusate nei trimestri successivi, costo di giacenza applicato",
+        "Il costo di produzione delle unità invendute non è spesato come costo del venduto",
+        "Nuovi test in coda al file esistente che coprono entrambi i percorsi e i casi limite"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/inventory.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/s5-5.test.ts"
+      ],
+      "closed_note": "Superato da S5-9/S5-10 (magazzino rifatto e rilasciato). Non riprendere."
+    },
+    {
+      "id": "S5-7",
+      "title": "UI: leva di produzione e scorte visibili",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "abandoned",
+      "deps": [
+        "S5-5",
+        "S5-6"
+      ],
+      "description": "Porta il magazzino nella UI. Nel tab Decisioni, sotto Operations, aggiungi il controllo per decidere QUANTO produrre (entro la capacità), separato dalla domanda attesa. Nel Cruscotto mostra le scorte a magazzino e il costo di giacenza dell'ultimo trimestre. Usa ESCLUSIVAMENTE campi che esistono davvero nel motore dopo l'integrazione del task da cui dipendi: se un campo non c'è, non inventarlo. Il giocatore deve capire il trade-off: produrre troppo costa giacenza, produrre troppo poco fa perdere vendite — rendilo evidente nella schermata. Mobile-first, coerente con lo stile esistente.",
+      "acceptance": [
+        "Controllo di produzione presente nel tab Decisioni, limitato dalla capacità",
+        "Scorte e costo di giacenza visibili nel Cruscotto, da campi reali del motore",
+        "Il trade-off sovra/sotto-produzione è comprensibile dalla schermata",
+        "Layout leggibile su viewport telefono; build e test esistenti verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/inventory.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Superato da S5-9/S5-10 (magazzino rifatto e rilasciato). Non riprendere."
+    },
+    {
+      "id": "S5-8",
+      "title": "Code review dello Sprint 5",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "done",
+      "deps": [
+        "S5-1",
+        "S5-4",
+        "S5-5",
+        "S5-6",
+        "S5-7"
+      ],
+      "description": "Revisiona il lavoro dello Sprint 5 sulla base dei diff reali che ricevi. Verifica in particolare: che il vincolo di non-regressione del motore sia rispettato (senza il campo produzione il comportamento deve essere identico a prima); che i conti tornino secondo le regole di Amministrazione (unità invendute non spesate come costo del venduto); che il costo di giacenza sia quello definito da Supply Chain; e che nulla usi Math.random. Segnala file, punto preciso e motivo. Se un diff non ti è stato fornito, DICHIARALO invece di dedurre.",
+      "acceptance": [
+        "Ogni rilievo indica file, punto preciso e motivo, basato sul diff ricevuto",
+        "Verificata la coerenza fra regole di business definite e codice prodotto",
+        "Verificato esplicitamente il vincolo di non-regressione del motore"
+      ],
+      "closed_note": "Chiuso 2026-07-26."
+    },
+    {
+      "id": "S5-9",
+      "title": "Magazzino: riportare le scorte fra trimestri e allineare il costo di giacenza",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S5-2",
+        "S5-3"
+      ],
+      "description": "Il magazzino consegnato nello Sprint 5 non è utilizzabile e non è stato rilasciato. Due difetti da correggere, entrambi verificati:\n\n1) SCORTE MAI RIPORTATE. In `apps/web/src/lib/game-engine/simulate.ts` (sul branch `agent/S5-5`) c'è `const startingInventory = 0;` cablato, e `simulateQuarter` non ha alcun parametro per ricevere le scorte del trimestre precedente. Risultato: produci in eccesso, paghi il costo di giacenza, e il trimestre dopo la merce è sparita — il magazzino è solo una penalità. Aggiungi a `simulateQuarter` un parametro OPZIONALE per le scorte iniziali per giocatore (es. `startingInventories?: Record<string, number>`), usalo al posto dello zero cablato, e assicurati che `endingInventory` di un trimestre possa essere passato come scorte iniziali del successivo.\n\n2) COSTO DI GIACENZA INCOERENTE. Supply Chain (S5-2) ha stabilito **2,50 €/unità/trimestre** con una giustificazione precisa. Il motore ha implementato 2,00 € e la UI 1,10 € (2% di 55 €). Allinea `apps/web/src/lib/game-engine/inventory.ts` al valore deciso da Supply Chain: 2,50. Il valore deve stare in UN SOLO posto ed essere importato, mai riscritto altrove.\n\nVINCOLO ASSOLUTO: senza il campo `producedUnits` e senza scorte iniziali il comportamento resta identico a oggi. **NON CANCELLARE NÉ MODIFICARE ALCUN TEST ESISTENTE**: aggiungi i tuoi in coda. Un tentativo precedente ha riscritto `engine.test.ts` da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire. Ora c'è un controllo che lo blocca.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s5-9.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "simulateQuarter accetta le scorte iniziali per giocatore e le usa davvero",
+        "Test su due trimestri consecutivi: le scorte finali del primo diventano le iniziali del secondo",
+        "Costo di giacenza = 2,50 €/unità/trimestre, definito in un solo punto e importato",
+        "Senza producedUnits e senza scorte iniziali il comportamento è identico a oggi",
+        "Nessun test esistente cancellato o modificato; i 51 test attuali restano verdi"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/inventory.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/inventory.ts",
+        "apps/web/src/lib/game-engine/s5-9.test.ts"
+      ],
+      "closed_note": "Rilasciato in produzione il 2026-07-26."
+    },
+    {
+      "id": "S5-10",
+      "title": "UI: leva di produzione e magazzino nel Cruscotto",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S5-9",
+        "S5-2"
+      ],
+      "description": "Porta il magazzino nella UI, usando il motore corretto nel task da cui dipendi. Nel tab Decisioni, sezione Operations, aggiungi il controllo per decidere QUANTO produrre (limitato dalla capacità). Nel Cruscotto mostra le scorte a magazzino e il costo di giacenza dell'ultimo trimestre. Il gioco deve mantenere le scorte fra un trimestre e l'altro: passa a `simulateQuarter` le scorte finali del trimestre precedente.\n\nATTENZIONE — il costo di giacenza NON va riscritto nella UI: importalo dal motore. In un tentativo precedente la UI usava 1,10 €/unità mentre il motore usava un altro valore, e il giocatore vedeva proiezioni sbagliate. Usa SOLO campi che esistono davvero nel motore. Rendi evidente il trade-off: produrre troppo costa giacenza, produrre troppo poco fa perdere vendite. Mobile-first, coerente con lo stile esistente.",
+      "acceptance": [
+        "Controllo di produzione nel tab Decisioni, limitato dalla capacità",
+        "Scorte e costo di giacenza visibili nel Cruscotto, da campi reali del motore",
+        "Le scorte si riportano davvero da un trimestre al successivo, verificabile giocando",
+        "Il costo di giacenza è importato dal motore, non riscritto nella UI",
+        "Nessun test esistente cancellato o modificato; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/inventory.ts",
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Rilasciato in produzione il 2026-07-26."
+    },
+    {
+      "id": "S6-1",
+      "title": "Regole della leva MARKETING: brand, campagne e domanda",
+      "role": "business-marketing",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Definisci le regole di gioco della leva MARKETING, coerenti col motore attuale (vedi il codice nella blackboard). Oggi la domanda dipende SOLO dal prezzo relativo. Devi specificare, con NUMERI concreti: cosa può decidere il giocatore ogni trimestre (budget di campagna? posizionamento?); come l'investimento si traduce in domanda attratta, cioè come entra nella formula di attrattività accanto al prezzo; se esiste un effetto BRAND che si accumula nel tempo e con che tasso di decadimento se smetti di investire; e i rendimenti decrescenti — raddoppiare il budget non deve raddoppiare l'effetto, altrimenti la strategia ottimale diventa banale.\n\nVincolo di equilibrio: la leva non deve rendere il prezzo irrilevante, e deve avere un costo che la renda una scelta vera (spendere in marketing toglie liquidità). Dai un esempio numerico su due o tre trimestri che mostri il ritorno dell'investimento.",
+      "acceptance": [
+        "Formula esplicita di come il marketing entra nell'attrattività, accanto al prezzo",
+        "Rendimenti decrescenti espressi con una formula, non a parole",
+        "Effetto brand: accumulo e decadimento con tassi numerici, oppure motivata assenza",
+        "Esempio numerico su più trimestri che mostra il ritorno dell'investimento",
+        "Dichiarato cosa NON cambia del motore attuale e come si preserva il determinismo"
+      ]
+    },
+    {
+      "id": "S6-2",
+      "title": "Motore: modulo marketing (brand e campagne)",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S6-1"
+      ],
+      "description": "Crea il modulo NUOVO `apps/web/src/lib/game-engine/marketing.ts` e i test in `apps/web/src/lib/game-engine/marketing.test.ts`, secondo le regole definite da Marketing nel task da cui dipendi. Il modulo deve essere PURO e deterministico, importare i tipi da `./types` e NON modificare `simulate.ts` (l'aggancio alla simulazione sarà un task successivo). Esporta il tipo per lo stato di brand e le funzioni che calcolano: l'effetto di un investimento sull'attrattività (con i rendimenti decrescenti definiti da Marketing) e l'evoluzione del brand fra un trimestre e l'altro (accumulo e decadimento). Se ti serve casualità usa `mulberry32` da `./market`, mai Math.random. Non modificare NESSUN file esistente. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Nuovo modulo marketing.ts, puro e deterministico, con tipi e funzioni esportate",
+        "Rendimenti decrescenti implementati secondo la formula di Marketing, con test dedicato",
+        "Accumulo e decadimento del brand testati su più trimestri",
+        "Nessun file esistente modificato; nessun test esistente cancellato; test verdi"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/market.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/marketing.ts",
+        "apps/web/src/lib/game-engine/marketing.test.ts"
+      ]
+    },
+    {
+      "id": "S6-3",
+      "title": "Code review di magazzino e marketing",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "done",
+      "deps": [
+        "S5-9",
+        "S5-10",
+        "S6-2"
+      ],
+      "description": "Revisiona il lavoro sulla base dei diff reali che ricevi. Verifica in particolare: che le scorte si riportino davvero fra trimestri (in una versione precedente `startingInventory` era cablato a 0); che il costo di giacenza sia definito in UN SOLO punto col valore deciso da Supply Chain (2,50 €/unità) e importato ovunque serva; che il vincolo di non-regressione sia rispettato; che nessun test preesistente sia stato cancellato; che nulla usi Math.random. Se un diff non ti è stato fornito, DICHIARALO invece di dedurre.",
+      "acceptance": [
+        "Ogni rilievo indica file, punto preciso e motivo, basato sul diff ricevuto",
+        "Verificato esplicitamente il riporto delle scorte fra trimestri",
+        "Verificata l'unicità del valore del costo di giacenza"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S7-1",
+      "title": "Scomporre il costo unitario e definire la CATENA DI RIFORNIMENTO",
+      "role": "business-supply-chain",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Oggi il costo di produzione è `unità prodotte × 55 €`: una scatola nera. I costi variabili già scalano con la produzione (corretto), ma non si sa di cosa siano fatti e le materie prime si materializzano dal nulla. Definisci due cose.\n\n**A) Scomposizione dei 55 €** in componenti con numeri concreti che sommino a 55: materie prime, manodopera diretta, energia/consumabili. Chiarisci quali scalano con le unità prodotte e quali no (la manodopera diretta scala davvero, o è più vicina a un costo fisso di reparto?). Se una componente non è puramente variabile, dillo e spiega come modellarla.\n\n**B) Catena di rifornimento.** Il giocatore deve poter ACQUISTARE materie prime, che diventano un secondo magazzino distinto dai prodotti finiti. Specifica con numeri: unità di materia prima per unità di prodotto finito; prezzo di acquisto e eventuali sconti a volume; **lead time** (se ordino oggi, quando arriva la merce?); costo di giacenza delle materie prime, che può essere diverso da quello dei prodotti finiti (2,50 €/unità/trimestre); cosa succede se provo a produrre senza materie prime sufficienti (produzione limitata? acquisto d'emergenza più caro?); se ci sono più fornitori con profili diversi (economico ma lento, caro ma rapido/affidabile).\n\nIl trade-off che il gioco deve far sentire: ordinare in anticipo e in grande immobilizza capitale e costa giacenza, ordinare tardi o poco blocca la produzione. Dai un esempio numerico su tre trimestri che lo dimostri.",
+      "acceptance": [
+        "I 55 € scomposti in componenti che sommano esattamente a 55, con numeri",
+        "Chiarito per ogni componente se scala con le unità prodotte o no, e perché",
+        "Lead time, prezzo di acquisto e sconti a volume espressi con numeri",
+        "Regola esplicita per 'produco senza materie prime sufficienti'",
+        "Esempio numerico su tre trimestri che mostra il trade-off di approvvigionamento",
+        "Dichiarato cosa NON cambia del motore attuale"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S7-2",
+      "title": "Impatto contabile della catena di rifornimento",
+      "role": "business-amministrativo",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S7-1"
+      ],
+      "description": "Partendo dalle regole di Supply Chain nel task da cui dipendi, definisci l'impatto contabile del secondo magazzino. In particolare: come si valorizzano le scorte di materie prime; quando il costo delle materie prime diventa costo del venduto (all'acquisto? al consumo in produzione? alla vendita del prodotto finito?) — questa è la domanda centrale e la risposta sbagliata falsa il profitto; come si combina col magazzino prodotti finiti già esistente, dove il costo di produzione delle unità invendute non è spesato come costo del venduto; e quali KPI di Controlling vanno aggiunti o rivisti (rotazione delle scorte di materie prime, copertura in trimestri). Dimostra con un esempio numerico su tre trimestri che i conti tornano.",
+      "acceptance": [
+        "Regola esplicita di valorizzazione delle scorte di materie prime",
+        "Chiarito il momento in cui il costo delle materie prime entra nel costo del venduto",
+        "Coerenza dimostrata col magazzino prodotti finiti esistente",
+        "Esempio numerico su tre trimestri in cui i conti quadrano"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S7-3",
+      "title": "Motore: modulo catena di rifornimento (materie prime)",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S7-1",
+        "S7-2"
+      ],
+      "description": "Crea il modulo NUOVO `apps/web/src/lib/game-engine/supply.ts` e i test in `apps/web/src/lib/game-engine/supply.test.ts` secondo le regole definite da Supply Chain e Amministrazione nei task da cui dipendi. Il modulo deve essere PURO e deterministico, importare i tipi da `./types` e NON modificare `simulate.ts` (l'aggancio è un task successivo). Esporta: il tipo per lo stato del magazzino materie prime, la funzione che evolve quello stato dato un ordine e i consumi del trimestre (rispettando il lead time definito), la funzione che calcola il costo di acquisto (con gli sconti a volume) e quella del costo di giacenza delle materie prime. Gestisci il caso 'materie prime insufficienti' come stabilito da Supply Chain. Non modificare NESSUN file esistente. NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Nuovo modulo supply.ts, puro e deterministico, con tipi e funzioni esportate",
+        "Lead time implementato: un ordine non è disponibile nel trimestre in cui viene fatto (se così stabilito)",
+        "Sconti a volume e costo di giacenza materie prime secondo i valori di Supply Chain",
+        "Caso 'materie prime insufficienti' coperto da test dedicato",
+        "Nessun file esistente modificato, nessun test esistente cancellato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/inventory.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/supply.test.ts"
+      ]
+    },
+    {
+      "id": "S7-4",
+      "title": "Motore: agganciare le materie prime alla simulazione e scomporre il costo unitario",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S7-3"
+      ],
+      "description": "Integra `supply.ts` in `apps/web/src/lib/game-engine/simulate.ts` e scomponi il costo unitario secondo la ripartizione definita da Supply Chain. Due cose:\n\n1) `EngineConfig` espone le componenti del costo unitario (materie prime, manodopera, energia) che devono sommare al `unitCost` attuale di 55 €, così i numeri di oggi non cambiano. Il costo di produzione usa le componenti al posto del valore unico.\n\n2) `simulateQuarter` accetta lo stato del magazzino materie prime e le decisioni di acquisto (entrambi OPZIONALI), applica il vincolo di disponibilità sulla produzione e riporta nel risultato le scorte di materie prime e i costi di acquisto e giacenza relativi.\n\nVINCOLO DI NON-REGRESSIONE. Senza le nuove decisioni il comportamento deve restare IDENTICO a oggi, e i test esistenti devono passare SENZA essere modificati. Attenzione al valore di default: nello Sprint 5 un default sbagliato (`?? capacity` invece di 'quel che vendi') ha ribaltato un trimestre da +69.985 € a −83.367 € e nessun test se n'è accorto, perché nessuno copriva quello scenario. Quando scegli un default, scrivi un test che confronta il risultato SENZA il nuovo campo con il valore atteso dalla v0.1, in uno scenario dove i due comportamenti divergerebbero. **Non cancellare né modificare alcun test esistente.**\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s7-4.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "Le componenti del costo unitario sommano esattamente a 55 €: i numeri attuali non cambiano",
+        "Senza decisioni di acquisto e senza stato materie prime il comportamento è identico a oggi",
+        "Con le materie prime: la produzione è limitata dalla disponibilità secondo le regole di Supply Chain",
+        "Test che coprono entrambi i percorsi, incluso lo scenario dove i default divergerebbero",
+        "Nessun test esistente cancellato o modificato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/s7-4.test.ts"
+      ]
+    },
+    {
+      "id": "S7-5",
+      "title": "UI: approvvigionamento materie prime e scomposizione dei costi",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S7-4"
+      ],
+      "description": "Porta la catena di rifornimento nella UI. Nel tab Decisioni, sezione Operations (o una nuova sotto-sezione Approvvigionamento se è più leggibile), aggiungi il controllo per ordinare materie prime, mostrando lead time e costo dell'ordine. Nel Cruscotto mostra le scorte di materie prime accanto a quelle di prodotti finiti, e la scomposizione del costo di produzione dell'ultimo trimestre (materie prime / manodopera / energia).\n\nLe scorte di materie prime devono riportarsi fra trimestri, come già fanno i prodotti finiti. **Importa i valori dal motore, non riscriverli nella UI**: in un tentativo precedente il costo di giacenza era 1,10 € nella UI contro 2,00 € nel motore e il giocatore vedeva proiezioni sbagliate. Usa SOLO campi che esistono davvero. Attenzione ai formattatori: `eur()` arrotonda agli interi, per i costi unitari con centesimi usa `eurPrecise`. Mobile-first, coerente con lo stile esistente.",
+      "acceptance": [
+        "Controllo di ordine materie prime nel tab Decisioni, con lead time e costo visibili",
+        "Scorte di materie prime nel Cruscotto, che si riportano fra trimestri",
+        "Scomposizione del costo di produzione dell'ultimo trimestre visibile",
+        "Tutti i valori importati dal motore, nessuna costante riscritta nella UI",
+        "Layout leggibile su viewport telefono; build e test verdi; nessun test cancellato"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S7-6",
+      "title": "Code review della catena di rifornimento",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "done",
+      "deps": [
+        "S7-3",
+        "S7-4",
+        "S7-5"
+      ],
+      "description": "Revisiona sulla base dei diff reali che ricevi. Verifica in particolare: che le componenti del costo unitario sommino esattamente a 55 € (altrimenti i numeri di gioco cambiano di soppiatto); che il vincolo di non-regressione sia rispettato, cercando ATTIVAMENTE uno scenario in cui il default scelto divergerebbe dal comportamento v0.1; che le scorte di materie prime si riportino fra trimestri; che le costanti non siano duplicate fra motore e UI; che nessun test preesistente sia stato cancellato o modificato; che nulla usi Math.random. Se un diff non ti è stato fornito, DICHIARALO invece di dedurre.",
+      "acceptance": [
+        "Ogni rilievo indica file, punto preciso e motivo, basato sul diff ricevuto",
+        "Verificata la somma delle componenti del costo unitario",
+        "Cercato attivamente uno scenario di regressione sui valori di default"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S8-1",
+      "title": "Motore: agganciare la CASSA alla simulazione",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S7-4"
+      ],
+      "description": "Il modulo `apps/web/src/lib/game-engine/cash.ts` esiste, è testato, e non è collegato a nulla: il giocatore non lo tocca mai. Agganciarlo alla simulazione.\n\n`simulateQuarter` deve accettare la cassa iniziale per giocatore (parametro OPZIONALE, in coda a quelli esistenti) e riportare nel risultato la cassa finale e l'eventuale scoperto, usando le funzioni già presenti in `cash.ts` SENZA riscriverne la logica.\n\nATTENZIONE — il marketing è già stato agganciato: `simulateQuarter` ha già i parametri `brandStates` e i campi `marketingCost`/`brandEquity` nel risultato. NON toccarli, NON riscrivere `marketing.ts`, NON modificare la formula di attrattività.\n\nVINCOLO: senza il nuovo parametro il comportamento resta identico e i test esistenti passano SENZA modifiche. Aggiungi un test che confronta il risultato senza cassa iniziale con il valore atteso. NON cancellare né modificare test esistenti. NON modificare `index.ts`.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s8-1.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "simulateQuarter riporta cassa finale e scoperto usando le funzioni di cash.ts",
+        "Senza il nuovo parametro il comportamento è identico; i 114 test esistenti verdi e invariati",
+        "Nessuna logica di cassa duplicata: le formule restano in cash.ts",
+        "Marketing e magazzino non toccati"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/cash.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/s8-1.test.ts"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S8-2",
+      "title": "UI: rivali reattivi al posto dei bot cablati",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S8-1"
+      ],
+      "description": "In `apps/web/src/app/page.tsx` i rivali usano ancora `botDecisions`, una funzione cablata con prezzi fissi (`playerPrice - 5` e 110/108). Esiste `generateRivalDecision` in `apps/web/src/lib/game-engine/rivals.ts`, testata e deterministica, che nessuno usa. Sostituisci i bot cablati con quella funzione, mantenendo lo storico dei trimestri necessario a farla reagire. I rivali devono restare DETERMINISTICI a parità di seed di partita. Rimuovi `botDecisions` una volta sostituita: lasciare due sorgenti di verità è peggio che averne una sbagliata. Non modificare i file del motore.",
+      "acceptance": [
+        "I rivali usano generateRivalDecision e reagiscono al prezzo del giocatore",
+        "botDecisions è stata rimossa, non lasciata inutilizzata accanto alla nuova",
+        "A parità di seed la partita resta riproducibile",
+        "Build e test verdi; nessun test cancellato"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/rivals.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S8-3",
+      "title": "UI: cassa e scoperto dal motore",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S8-2"
+      ],
+      "description": "Porta nella UI la cassa agganciata al motore in S8-1. Oggi la liquidità è calcolata nella UI come capitale iniziale + profitto cumulato: una duplicazione che diverge appena il motore cambia. Falla venire dal motore e mostra lo scoperto quando la cassa va sotto zero.\n\nNON toccare la sezione Marketing né quella del magazzino: sono già complete e funzionanti. Usa SOLO campi reali del motore e importa le costanti invece di riscriverle. Mobile-first, coerente con lo stile esistente.",
+      "acceptance": [
+        "La liquidità mostrata proviene dal motore, non ricalcolata nella UI",
+        "Lo scoperto è visibile quando la cassa è negativa",
+        "Sezioni Marketing e Magazzino invariate",
+        "Build e test verdi; nessun test cancellato"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/cash.ts",
+        "apps/web/src/lib/game-engine/marketing.ts",
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S8-4",
+      "title": "Code review dell'integrazione",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "done",
+      "deps": [
+        "S7-4",
+        "S8-1",
+        "S8-2",
+        "S8-3"
+      ],
+      "description": "Revisiona sulla base dei diff reali. Verifica: che nessuna formula sia duplicata fra motore e UI; che i valori numerici corrispondano a quelli decisi dagli esperti di dominio nelle proposte; che il vincolo di non-regressione regga, cercando ATTIVAMENTE uno scenario in cui i default divergerebbero; che nessun test preesistente sia stato cancellato; che non resti codice morto (es. botDecisions non rimossa). Se un diff non ti è stato fornito, DICHIARALO invece di dedurre.",
+      "acceptance": [
+        "Verificata l'assenza di logica e costanti duplicate fra motore e UI",
+        "Cercato attivamente uno scenario di regressione sui default",
+        "Segnalato eventuale codice morto rimasto dopo le sostituzioni"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-1",
+      "title": "Struttura di costo PARAMETRICA per partita (materie prime / lavoro / fissi)",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nOggi il costo unitario è la costante 55 € uguale in ogni partita. La visione lo rende un PARAMETRO DI PARTITA: a inizio gioco si sceglie il prodotto, e con esso la ripartizione percentuale fra materie prime, costo del lavoro e costi fissi. Un prodotto ad alta intensità di materiali rende decisiva la leva approvvigionamento, uno ad alta intensità di lavoro rende decisiva la leva HR: è questa la fonte di varietà fra partite.\n\nDefinisci: quanti e quali PROFILI DI PRODOTTO offrire (es. 3-4 archetipi) con le loro percentuali concrete; come le percentuali si traducono in valori assoluti coerenti col resto dell'economia; quali quote possono OSCILLARE durante la partita per effetto degli acquisti e in che intervallo; e quale profilo è il default che riproduce ESATTAMENTE l'economia attuale (55 € con l'attuale ripartizione), perché serve come garanzia di non-regressione.\n\nSpiega per ogni profilo quale strategia premia e quale punisce: se due profili si giocano allo stesso modo, uno dei due è inutile.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "3-4 profili di prodotto con percentuali concrete che sommano a 100%",
+        "Un profilo di default che riproduce esattamente l'economia attuale (55 €)",
+        "Per ogni profilo: quale strategia premia e quale punisce, con un esempio numerico",
+        "Intervallo entro cui le quote possono oscillare durante la partita",
+        "Nomi dei campi proposti in inglese, coerenti con EngineConfig esistente"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-2",
+      "title": "Approvvigionamento a tre dimensioni: tempo, qualità, termini di pagamento",
+      "role": "business-supply-chain",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S9-1"
+      ],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nIl giocatore ordina i componenti scegliendo TRE dimensioni indipendenti, ognuna con effetto sul prezzo:\n\n1) **Tempo di consegna**: subito, oppure fra N trimestri. Prima lo vuoi, più costa. Definisci la scala (quali orizzonti sono offerti) e il sovrapprezzo per ciascuno.\n2) **Qualità della materia prima**: definisci i livelli (quanti, con che nome) e il prezzo di ciascuno. La qualità avrà effetti su scarto produttivo e percezione di mercato, definiti in altri task: qui stabilisci solo la scala e i prezzi.\n3) **Termini di pagamento**: quando si paga il fornitore. Definisci le opzioni e come ciascuna modifica il prezzo. Coordinati con Finance (S9-3) sull'effetto di cassa.\n\nLe tre dimensioni si combinano: mostra la formula che dal prezzo base arriva al prezzo finale, e verifica che nessuna combinazione domini sempre le altre. Parti dai parametri già decisi nel tuo task S7-1 (kit a 25,00 €, lead time 1 trimestre, giacenza materie prime 1,80 €/kit) e dichiara esplicitamente cosa modifichi e perché.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "Scala dei tempi di consegna con sovrapprezzo concreto per ciascun orizzonte",
+        "Livelli di qualità della materia prima con prezzo di ciascuno",
+        "Opzioni di pagamento con effetto sul prezzo, coordinate con Finance",
+        "Formula esplicita che compone le tre dimensioni nel prezzo finale",
+        "Dimostrato con esempi che nessuna combinazione domina sempre"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-3",
+      "title": "Termini di pagamento ai fornitori: effetto su cassa e costo",
+      "role": "business-finance",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S9-2"
+      ],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nI termini di pagamento sono una leva FINANZIARIA travestita da leva di acquisto: pagare in anticipo dovrebbe costare meno ma impegna liquidità subito, pagare a lungo costa di più ma libera cassa. Definisci, in coordinamento con la scala proposta da Supply Chain nel task da cui dipendi: le opzioni di dilazione concrete; lo sconto o sovrapprezzo di ciascuna; **in quale trimestre l'uscita di cassa si materializza**; come questo si integra con la cassa vincolata già definita nel tuo task S4-1; e cosa succede se alla scadenza la cassa non basta a pagare il fornitore.\n\nÈ la parte in cui il gioco può insegnare qualcosa di vero: un'azienda redditizia può morire di liquidità. Rendi possibile quello scenario, ma non inevitabile.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "Opzioni di dilazione con sconto/sovrapprezzo concreto per ciascuna",
+        "Trimestre esatto in cui si materializza l'uscita di cassa per ogni opzione",
+        "Regola esplicita per 'alla scadenza la cassa non basta'",
+        "Esempio numerico su tre trimestri che mostra un'azienda redditizia in crisi di liquidità"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-4",
+      "title": "Scarto produttivo: dalla qualità di materiali e personale ai difetti",
+      "role": "business-operations",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S9-2"
+      ],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nOggi il motore assume che tutto ciò che produci sia vendibile. La visione introduce lo SCARTO PRODUTTIVO: parte della produzione esce difettosa e non genera ricavo, pur avendo consumato materiali e lavoro.\n\nDefinisci: il tasso di scarto base; come lo riduce o peggiora la QUALITÀ DELLA MATERIA PRIMA (secondo i livelli definiti da Supply Chain nel task da cui dipendi); come lo influenza la QUALIFICAZIONE DEL PERSONALE (coordinati con HR in S9-5, definendo l'interfaccia fra le due leve); se gli straordinari peggiorano lo scarto (personale stanco) e di quanto; e cosa succede ai pezzi scartati — si buttano, si rilavorano, si vendono a sconto?\n\nPunto chiave del bilanciamento: materia prima scadente lavorata da personale molto qualificato deve poter dare un risultato paragonabile a materia prima ottima lavorata da personale base, ma con struttura di costo diversa. Due strade per lo stesso obiettivo. Mostra con i numeri che questo è vero.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "Tasso di scarto base e formula che lo lega a qualità materiali e qualificazione",
+        "Effetto degli straordinari sullo scarto, quantificato",
+        "Destino dei pezzi scartati definito (buttati, rilavorati o venduti a sconto)",
+        "Dimostrato numericamente che esistono due strade equivalenti con costi diversi",
+        "Con i valori di default lo scarto è zero: il motore attuale resta invariato"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-5",
+      "title": "HR: organico, qualificazione, costo del lavoro e impatto su qualità",
+      "role": "business-hr",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S9-1"
+      ],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nDefinisci la leva HR. Il giocatore decide organico e livello di qualificazione, e questo incide su tre fronti: costo del personale, qualità del prodotto, scarto produttivo.\n\nSpecifica: i livelli di qualificazione offerti e il costo di ciascuno per trimestre; quanti addetti servono per unità di capacità produttiva (il legame con gli stabilimenti da 3.000 unità); come si cambia livello — si assume, si forma, e con che tempi e costi; l'effetto sulla qualità del prodotto e sullo scarto (coordinati con Operations in S9-4 sull'interfaccia); e se esiste un effetto di clima/turnover che punisce le oscillazioni brusche di organico.\n\nRicorda che il costo del lavoro NON è puramente variabile: nel tuo dominio esiste una quota fissa di reparto che non scende se produci meno. Dillo esplicitamente, perché il motore oggi tratta tutto il costo unitario come variabile.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "Livelli di qualificazione con costo concreto per trimestre",
+        "Legame numerico fra organico e capacità produttiva esistente (3.000 u./stabilimento)",
+        "Meccanica e costi per cambiare livello (assunzione o formazione), con tempi",
+        "Quota fissa e quota variabile del costo del lavoro distinte esplicitamente",
+        "Effetto su qualità e scarto, coordinato con Operations"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S9-6",
+      "title": "Qualità percepita: come entra nella conquista di quota di mercato",
+      "role": "business-marketing",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S9-4",
+        "S9-5"
+      ],
+      "description": "Riferimento obbligatorio: `docs/14-visione-approvvigionamento-hr-qualita.md`, che riporta la visione dettata dall'utente. Non contraddirla: i NUMERI li decidi tu, il COSA è già stabilito.\n\nFinora la quota di mercato dipende dal prezzo relativo e, da poco, dal marketing (brand + campagne, task S6-1). La visione aggiunge la QUALITÀ come seconda dimensione competitiva: un prodotto migliore conquista quota a parità di prezzo.\n\nDefinisci: come la qualità reale (derivante da materiali e personale, vedi i task da cui dipendi) si traduce in qualità PERCEPITA dal mercato; con che ritardo — il mercato non si accorge subito di un miglioramento, e nemmeno di un peggioramento; come la qualità percepita entra nella formula di attrattività accanto a prezzo e brand, mantenendo la proprietà che senza le nuove leve il moltiplicatore vale esattamente 1; e il rapporto fra marketing e qualità reale — la percezione può divergere dalla sostanza, ma per quanto e con quali conseguenze quando il mercato se ne accorge?\n\nVincolo di equilibrio: la qualità non deve rendere il prezzo irrilevante, e non deve esistere una qualità 'sempre giusta'. Alzare la qualità costa: mostra con i numeri quando conviene e quando no.\n\nVincoli comuni a tutte le proposte di questo sprint:\n- Ogni parametro numerico va indicato con un VALORE CONCRETO e giustificato, mai 'da definire'.\n- Riferisciti ai valori già in gioco (costo unitario 55 €, prezzo di riferimento 100 €, capacità 3.000 u./stabilimento, domanda totale 10.000 u./trimestre, costo di giacenza 2,50 €/unità) e dichiara esplicitamente cosa NON cambia.\n- Ogni leva deve essere una SCELTA vera: se un'opzione domina sempre le altre, la leva è finta. Mostra con un esempio numerico che esistono situazioni in cui conviene l'una e situazioni in cui conviene l'altra.\n- Indica i casi limite e cosa succede ai valori di default (il motore senza le nuove leve deve comportarsi esattamente come oggi).",
+      "acceptance": [
+        "Formula che lega qualità reale a qualità percepita, con il ritardo quantificato",
+        "Formula di attrattività aggiornata che vale 1 senza le nuove leve",
+        "Regola esplicita su quanto la percezione può divergere dalla sostanza e cosa succede poi",
+        "Esempio numerico che mostra un caso in cui alzare la qualità NON conviene"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S10-1",
+      "title": "Parametri INIZIALI di partita: tutti i costi derivati, nessuna costante cablata",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Riferimento: `docs/14-visione-approvvigionamento-hr-qualita.md`.\n\nCORREZIONE dell'utente a S9-1/S9-2. Nei design precedenti il costo della materia prima è finito cablato come numero fisso (prima 25,00 €, poi 27,50 €) e i due documenti si contraddicono. **L'utente non vuole scegliere fra i due: non vuole NESSUN numero cablato.**\n\nRequisito: a inizio partita si impostano pochi PARAMETRI DI SETUP, e da quelli si DERIVANO tutti i costi. Testualmente: «deve essere qualcosa che scelgo come parametro iniziale, come un default sulla base del prezzo standard del prodotto, in modo da rendere dinamico il tutto e non vincolato a un unico scenario».\n\nDefinisci quindi:\n1) l'insieme MINIMO di parametri di setup (es. prezzo standard del prodotto, incidenza del costo totale sul prezzo, profilo di prodotto con le sue quote percentuali);\n2) le FORMULE che da quei parametri derivano costo materie prime, costo del lavoro e quota dei fissi — in modo che cambiando il prezzo standard o il profilo si ricalcoli tutto automaticamente e resti coerente;\n3) la dimostrazione che coi parametri di default si riottengono ESATTAMENTE i valori di oggi (prezzo 100 €, costo unitario 55 €), così la non-regressione è garantita per costruzione e non per coincidenza;\n4) due o tre scenari di esempio con parametri diversi (es. prodotto di lusso a prezzo alto e margine ampio, commodity a prezzo basso e margine sottile) che mostrino come cambia l'intera economia della partita.\n\nNessun valore assoluto deve comparire nel codice se può essere derivato: i numeri cablati sono esattamente ciò che ha generato la contraddizione fra S9-1 e S9-2.\n\nVincoli: ogni parametro con un VALORE CONCRETO e giustificato; dichiara cosa NON cambia; coi valori di default il motore attuale deve comportarsi esattamente come oggi; ogni leva dev'essere una scelta vera (mostra con i numeri quando conviene l'una e quando l'altra).",
+      "acceptance": [
+        "Elenco minimo dei parametri di setup, con il loro default",
+        "Formule esplicite che derivano TUTTI i costi dai parametri di setup",
+        "Dimostrato che i default riproducono esattamente prezzo 100 € e costo unitario 55 €",
+        "Due o tre scenari alternativi che mostrano economie di partita diverse",
+        "Nessun costo resta un numero cablato se derivabile"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S10-2",
+      "title": "HR: organico come MIX di competenze, con assunzioni e licenziamenti",
+      "role": "business-hr",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S10-1"
+      ],
+      "description": "Riferimento: `docs/14-visione-approvvigionamento-hr-qualita.md`.\n\nCORREZIONE dell'utente a S9-5. Il design precedente trattava la qualificazione come un LIVELLO UNICO scelto per tutta l'azienda. Non è così che funziona un'azienda vera, e non è ciò che l'utente vuole.\n\nTestualmente: «potrei licenziare dipendenti o assumerne di nuovi e potrei averne in lavoro con diverse competenze, da chi è più costoso e mi produce di più a chi meno e produce di meno; ovviamente deve essere una cosa bilanciata, infatti non è che un'azienda ha tutti super qualificati o nessuno qualificato, ma deve esserci il giusto compromesso. Questo incide sullo scarto e sulla capacità produttiva.»\n\nQuindi l'organico è un **MIX**: quanti addetti per ciascun livello di competenza, non un livello unico. Definisci:\n1) come si compone il mix e come lo si modifica: ASSUNZIONI e LICENZIAMENTI, con costi (selezione, formazione, liquidazione) e tempi — un esperto non si assume in un giorno;\n2) come il mix determina la CAPACITÀ PRODUTTIVA effettiva: oggi la capacità dipende solo dagli stabilimenti (3.000 u. ciascuno); con l'organico deve dipendere anche dalle persone, e uno stabilimento senza abbastanza addetti non produce a pieno;\n3) come il mix determina lo SCARTO, coordinandoti con Operations (S9-4);\n4) **perché il mix ottimale non è mai 'tutti esperti' né 'tutti base'**: deve esistere un compromesso. Se il tuo modello premia sempre un estremo, il modello è sbagliato — dimostra con i numeri che esiste un punto di equilibrio e da cosa dipende (profilo di prodotto, volumi, qualità dei materiali).\n\nRicorda che il costo del personale è FISSO nel trimestre: si paga a prescindere da quanto si produce. È la differenza sostanziale rispetto alle materie prime, e va detta esplicitamente perché il motore oggi tratta tutto il costo unitario come variabile.\n\nVincoli: ogni parametro con un VALORE CONCRETO e giustificato; dichiara cosa NON cambia; coi valori di default il motore attuale deve comportarsi esattamente come oggi; ogni leva dev'essere una scelta vera (mostra con i numeri quando conviene l'una e quando l'altra).",
+      "acceptance": [
+        "L'organico è un mix per livello, non un livello unico aziendale",
+        "Costi e tempi di assunzione e licenziamento per ciascun livello",
+        "Formula che lega il mix alla capacità produttiva effettiva degli stabilimenti",
+        "Formula che lega il mix allo scarto, coerente con Operations",
+        "Dimostrato numericamente che il mix ottimale NON è un estremo, e da cosa dipende",
+        "Costo del personale trattato come fisso di trimestre, non variabile per unità"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S11-1",
+      "title": "Il mercato CRESCE: trend di domanda lungo la partita",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Riferimento: `docs/14-visione-approvvigionamento-hr-qualita.md` e le proposte S10-1 (parametri derivati) e S10-2 (mix HR).\n\nDecisione dell'utente: «la mia idea è che il mercato cresca come trend». Oggi `totalDemand` è fisso a 10.000 unità/trimestre per tutta la partita, e il rumore ±9% oscilla attorno a quel valore costante.\n\nDefinisci: il tasso di crescita della domanda per trimestre e come si compone col rumore e con gli eventi già esistenti (la crescita è il TREND, il rumore è l'oscillazione attorno al trend — non vanno confusi); se la crescita è costante o varia (accelerazione iniziale, maturazione, saturazione); e come questo cambia l'arco narrativo di una partita da 8 trimestri — un mercato che cresce premia chi investe in capacità in anticipo, ma punisce chi lo fa troppo presto.\n\n**Il tasso di default deve poter essere 0**, così una partita con crescita nulla riproduce esattamente il comportamento attuale e i test esistenti non cambiano.\n\nQuesto parametro ha una conseguenza pesante su cui devi pronunciarti: se il mercato cresce ma la capacità produttiva totale dei giocatori no, la domanda insoddisfatta cresce e tutti vendono tutto. Dì esplicitamente come si evita che la crescita renda il gioco banale.\n\nVincoli: ogni parametro con VALORE CONCRETO e giustificato; **niente numeri cablati se derivabili dai parametri di setup** (vedi S10-1: il costo unitario si deriva da `standardPrice × variableCostRatio`, non si scrive 55); coi default il motore attuale deve comportarsi come oggi; dichiara cosa NON cambia.",
+      "acceptance": [
+        "Tasso di crescita per trimestre, con default 0 che riproduce il comportamento attuale",
+        "Chiarita la composizione fra trend, rumore ±9% ed eventi esistenti",
+        "Detto se la crescita è costante o variabile nel tempo, con i numeri",
+        "Spiegato esplicitamente come si evita che la crescita renda il gioco banale"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S11-2",
+      "title": "Mercato del lavoro FINITO e conteso fra le aziende",
+      "role": "business-hr",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S11-1"
+      ],
+      "description": "Riferimento: `docs/14-visione-approvvigionamento-hr-qualita.md` e le proposte S10-1 (parametri derivati) e S10-2 (mix HR).\n\nDecisione dell'utente, che risolve un problema reale del tuo design S10-2.\n\n**Il problema.** In S10-2 hai dimostrato onestamente che in regime stazionario «tutti Expert» vince (103.500 € contro 96.700 € del mix, +7% di profitto) e che il mix conviene solo con domanda molto volatile. Ma avevi assunto uno shock di domanda del −33%, mentre il gioco ha rumore ±9% ed eventi al massimo −20%: con la volatilità reale quel vantaggio resta senza contropartita e l'organico collassa sull'estremo.\n\n**La soluzione decisa dall'utente**: il mercato del lavoro è FINITO. Testualmente: «fare in modo che ci sia un numero limitato di dipendenti expert sul mercato — ma a quel punto puoi farlo per tutti, anche i junior — in modo che ci sia una certa competizione tra i concorrenti per l'assunzione; ovviamente il numero deve essere limitato e considerare la forza produttiva di tutti rispetto a quello che il mercato chiede».\n\nDefinisci quindi:\n1) la DIMENSIONE del bacino disponibile per ciascun livello, **derivata dalla domanda di mercato** e non cablata: il totale delle persone assumibili deve corrispondere a una capacità produttiva confrontabile con ciò che il mercato assorbe, così non tutti possono servire tutto il mercato;\n2) come si RISOLVE la competizione quando più aziende vogliono le stesse persone: chi le ottiene? Chi offre di più, chi si muove prima, o una ripartizione? La regola deve essere comprensibile al giocatore e deterministica a parità di seed;\n3) se e come il bacino si RIGENERA fra un trimestre e l'altro (nuovi diplomati, persone licenziate da altri che tornano disponibili), e se cresce insieme al mercato (vedi il trend definito nel task da cui dipendi);\n4) se esiste la FORMAZIONE INTERNA come alternativa all'assunzione — far crescere un Junior a Skilled costa tempo e denaro ma non consuma il bacino. Sarebbe la seconda strada che rende la scarsità gestibile invece che punitiva;\n5) **la verifica che ora il mix ottimale NON sia più un estremo**: rifai il confronto del tuo §7 con il bacino finito e mostra coi numeri che «tutti Expert» non è più raggiungibile o non è più conveniente. Se lo fosse ancora, la soluzione non funziona e devi dirlo.\n\nVincoli: ogni parametro con VALORE CONCRETO e giustificato; **niente numeri cablati se derivabili dai parametri di setup** (vedi S10-1: il costo unitario si deriva da `standardPrice × variableCostRatio`, non si scrive 55); coi default il motore attuale deve comportarsi come oggi; dichiara cosa NON cambia.",
+      "acceptance": [
+        "Dimensione del bacino per livello DERIVATA dalla domanda di mercato, non cablata",
+        "Regola di assegnazione quando la domanda di lavoro supera l'offerta, deterministica a parità di seed",
+        "Rigenerazione del bacino nel tempo e legame con la crescita del mercato",
+        "Presa una posizione esplicita sulla formazione interna come alternativa all'assunzione",
+        "Rifatto il confronto del §7 di S10-2: dimostrato che 'tutti Expert' non è più l'ottimo"
+      ],
+      "closed_note": "Consegnato e recepito. Chiuso 2026-07-27."
+    },
+    {
+      "id": "S12-1",
+      "title": "Motore: modulo setup — parametri di partita e costi derivati",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S10-1"
+      ],
+      "description": "Crea `apps/web/src/lib/game-engine/setup.ts` e `apps/web/src/lib/game-engine/setup.test.ts` secondo il design S10-1 (nel materiale che ricevi). È il FONDAMENTO: elimina i costi cablati.\n\nEsporta il tipo dei parametri di setup (i sette del design), i loro default, e la funzione pura che da quei parametri deriva le costanti di costo — costo variabile unitario, costo materie prime per unità, costo del lavoro per unità, quota dei fissi per unità — usando ESATTAMENTE le formule del design.\n\nRequisito verificabile: coi parametri di default la derivazione deve produrre `unitCost = 55`, `materialCostPerUnit = 33`, `laborCostPerUnit = 22`. Scrivi un test che lo asserisce: è la garanzia di non-regressione per tutto ciò che verrà dopo. Aggiungi anche i test degli scenari alternativi del design (lusso, commodity).\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Modulo setup.ts puro con tipi, default e funzione di derivazione esportati",
+        "Coi default: unitCost 55, materie prime 33, lavoro 22 — asserito da test",
+        "Testati gli scenari alternativi del design (lusso, commodity)",
+        "Nessun file esistente modificato; nessun test esistente toccato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/setup.ts",
+        "apps/web/src/lib/game-engine/setup.test.ts"
+      ]
+    },
+    {
+      "id": "S12-2",
+      "title": "Motore: modulo qualità e scarto produttivo",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S9-4"
+      ],
+      "description": "Crea `apps/web/src/lib/game-engine/quality.ts` e `apps/web/src/lib/game-engine/quality.test.ts` secondo il design S9-4.\n\nEsporta: i livelli di qualità della materia prima con i loro effetti, la funzione pura che calcola il TASSO DI SCARTO combinando qualità materiali, qualificazione del personale e straordinari, e la funzione che applica lo scarto alla produzione distinguendo unità buone e unità scartate. Implementa i tre destini dei pezzi scartati definiti dal design (buttare, rilavorare, vendere a sconto).\n\nRequisito verificabile: coi valori di default (materiale standard, personale base, niente straordinari) lo scarto deve essere ESATTAMENTE 0, così il motore attuale non cambia. Testalo esplicitamente.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Modulo quality.ts puro con livelli, calcolo dello scarto e destini dei pezzi scartati",
+        "Coi default lo scarto è esattamente 0 — asserito da test",
+        "Ogni destino dei pezzi scartati coperto da un test",
+        "Nessun file esistente modificato; nessun test esistente toccato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/quality.ts",
+        "apps/web/src/lib/game-engine/quality.test.ts"
+      ]
+    },
+    {
+      "id": "S12-3",
+      "title": "Motore: modulo organico e mercato del lavoro conteso",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S10-2",
+        "S11-2"
+      ],
+      "description": "Crea `apps/web/src/lib/game-engine/workforce.ts` e `apps/web/src/lib/game-engine/workforce.test.ts` secondo i design S10-2 e S11-2.\n\nEsporta: il tipo dell'organico come MIX per livello (non un livello unico), i parametri dei tre livelli, la funzione che calcola costo del personale e capacità produttiva effettiva dal mix, la funzione che evolve il BACINO condiviso (uscite naturali, nuovi ingressi, licenziati che rientrano dopo un trimestre), la funzione di ASSEGNAZIONE che risolve la contesa fra più aziende ad asta salariale con tie-break deterministico, e la formazione interna fra livelli.\n\nL'assegnazione deve essere DETERMINISTICA a parità di seed: se ti serve casualità usa `mulberry32` da `./market`, mai Math.random. Il costo del personale è FISSO nel trimestre: si paga a prescindere dalla produzione.\n\nRequisito verificabile: con `laborPoolEnabled = false` (default) il bacino è illimitato e non cambia nulla. Testa anche che due aziende che chiedono più Expert di quanti ne esistano non possano ottenerli entrambe.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Organico come mix per livello; costo del personale fisso nel trimestre",
+        "Capacità produttiva effettiva calcolata dal mix",
+        "Asta salariale deterministica a parità di seed; nessun Math.random",
+        "Bacino che si rigenera: uscite, ingressi, licenziati che rientrano",
+        "Formazione interna fra livelli implementata",
+        "Con laborPoolEnabled=false nulla cambia — asserito da test"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/market.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/workforce.ts",
+        "apps/web/src/lib/game-engine/workforce.test.ts"
+      ]
+    },
+    {
+      "id": "S12-4",
+      "title": "Motore: approvvigionamento a tre dimensioni (riscrittura di supply)",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S9-2",
+        "S9-3"
+      ],
+      "description": "Riscrivi `apps/web/src/lib/game-engine/supply.ts` e `apps/web/src/lib/game-engine/supply.test.ts` secondo i design S9-2 e S9-3. Il modulo attuale ha una sola dimensione; il design ne prevede TRE indipendenti che si compongono nel prezzo finale:\n\n1) tempo di consegna (express … pianificato 3Q) con il suo sovrapprezzo;\n2) qualità della materia prima (economy … ultra) con il suo prezzo;\n3) termini di pagamento (anticipato … net90) con effetto su prezzo E su QUANDO esce la cassa.\n\nEsporta la funzione che compone le tre dimensioni nel prezzo finale, la gestione degli ordini in arrivo con i rispettivi lead time, e lo scadenzario dei pagamenti ai fornitori secondo S9-3 (in quale trimestre si materializza ogni uscita).\n\nIl prezzo base delle materie prime NON è un numero cablato: arriva dai parametri di setup (`materialCostPerUnit`). La combinazione di default (standard/standard/alla consegna) deve riprodurre il costo attuale.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Le tre dimensioni sono indipendenti e si compongono secondo la formula del design",
+        "Scadenzario dei pagamenti: per ogni opzione, il trimestre di uscita cassa è corretto",
+        "Il prezzo base viene dai parametri di setup, non è cablato",
+        "La combinazione di default riproduce il costo attuale — asserito da test",
+        "Nessun test esistente cancellato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/inventory.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/supply.test.ts"
+      ]
+    },
+    {
+      "id": "S13-1",
+      "title": "Motore: integrare setup, scarto e crescita del mercato",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S12-1",
+        "S12-2",
+        "S11-1"
+      ],
+      "description": "Integra in `apps/web/src/lib/game-engine/simulate.ts` tre cose, tutte OPZIONALI e disattivate di default:\n\n1) i parametri di setup di `setup.ts`: `EngineConfig` deve poter essere COSTRUITA dalla derivazione invece di avere i costi cablati, mantenendo `DEFAULT_CONFIG` identica a oggi;\n2) lo scarto di `quality.ts`: le unità vendibili diventano quelle buone, non tutte le prodotte; lo scarto è un costo che non genera ricavo;\n3) la crescita della domanda secondo S11-1: `totalDemand` cresce col trend, il rumore ±9% resta l'oscillazione ATTORNO al trend (non confonderli).\n\nCon scarto a zero e crescita a zero il risultato deve essere identico a oggi.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s13-1.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "EngineConfig costruibile dai parametri di setup; DEFAULT_CONFIG invariata",
+        "Le unità vendibili tengono conto dello scarto; lo scarto costa e non ricava",
+        "La domanda cresce col trend, con il rumore applicato attorno al trend",
+        "Con scarto 0 e crescita 0 il comportamento è identico — test nello scenario che divergerebbe",
+        "Nessun test esistente cancellato o modificato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/setup.ts",
+        "apps/web/src/lib/game-engine/quality.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/s13-1.test.ts"
+      ]
+    },
+    {
+      "id": "S13-2",
+      "title": "Motore: la capacità produttiva dipende dall'organico",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S13-1",
+        "S12-3"
+      ],
+      "description": "Integra `workforce.ts` in `apps/web/src/lib/game-engine/simulate.ts`. Oggi la capacità dipende solo dagli stabilimenti; con l'organico deve dipendere anche dalle persone: uno stabilimento senza abbastanza addetti non produce a pieno. La capacità effettiva è il MINIMO fra capacità impianti e capacità della forza lavoro.\n\nIl costo del personale entra fra i costi FISSI del trimestre, non fra i variabili per unità. La qualificazione media del mix alimenta il calcolo dello scarto già integrato.\n\nCon organico assente (parametro non passato) la capacità resta quella degli impianti e i costi restano quelli di oggi.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/s13-2.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "Capacità effettiva = min(capacità impianti, capacità forza lavoro)",
+        "Costo del personale fra i costi fissi, non variabile per unità",
+        "Il mix alimenta lo scarto",
+        "Senza organico il comportamento è identico — test dedicato",
+        "Nessun test esistente cancellato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/workforce.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/s13-2.test.ts"
+      ]
+    },
+    {
+      "id": "S13-3",
+      "title": "Motore: materie prime a tre dimensioni e qualità percepita",
+      "role": "backend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S13-2",
+        "S12-4",
+        "S9-6"
+      ],
+      "description": "Integra in `apps/web/src/lib/game-engine/simulate.ts` il modulo `supply.ts` riscritto e la QUALITÀ PERCEPITA secondo S9-6.\n\n1) Approvvigionamento: le decisioni di acquisto (tempo, qualità, pagamento) entrano nella simulazione; la disponibilità di materie prime limita la produzione; i pagamenti ai fornitori escono dalla cassa nel trimestre giusto secondo lo scadenzario.\n2) Qualità percepita: la qualità reale (materiali + personale) si traduce in percepita CON IL RITARDO definito dal design, ed entra nella formula di attrattività accanto a prezzo e marketing. Senza le nuove leve il moltiplicatore vale esattamente 1.\n\nAttenzione: la formula di attrattività contiene già il moltiplicatore di marketing. Componi, non sostituire.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.\n\n**I test di questo task vanno in un FILE NUOVO**, `apps/web/src/lib/game-engine/perceived-quality.test.ts`, scritto per intero con `### FILE:`. Non aggiungerli in coda a `engine.test.ts`: quel file ha 1.400 righe e i blocchi SEARCH/REPLACE l'hanno corrotto tre volte, facendo perdere lavoro sul motore che era corretto.",
+      "acceptance": [
+        "Le tre dimensioni di acquisto influenzano prezzo, disponibilità e cassa",
+        "I pagamenti ai fornitori escono nel trimestre corretto",
+        "La qualità percepita segue quella reale con il ritardo del design",
+        "Senza le nuove leve il moltiplicatore di attrattività vale esattamente 1 — test dedicato",
+        "Il marketing già integrato non è stato alterato"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/quality.ts",
+        "apps/web/src/lib/game-engine/marketing.ts",
+        "apps/web/src/lib/game-engine/engine.test.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/perceived-quality.test.ts"
+      ]
+    },
+    {
+      "id": "S14-1",
+      "title": "UI: tab Approvvigionamento",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S13-3"
+      ],
+      "description": "In `apps/web/src/app/page.tsx` aggiungi la sotto-sezione **Approvvigionamento** nel tab Decisioni (oggi c'è un segnaposto 'presto' per Distribuzione: NON toccarlo, questa è una sezione nuova). Il giocatore deve poter scegliere le tre dimensioni — tempo di consegna, qualità della materia prima, termini di pagamento — vedendo per ciascuna l'effetto sul prezzo e, per i pagamenti, quando uscirà la cassa.\n\nMostra il costo totale dell'ordine e le scorte di materie prime. Importa i valori dal motore, non riscriverli: in un tentativo precedente la UI usava un costo diverso da quello del motore e il giocatore vedeva proiezioni sbagliate. Usa `eurPrecise` per gli importi con centesimi. Mobile-first, coerente con lo stile esistente. NON toccare le sezioni Commerciale, Operations e Marketing.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Le tre dimensioni sono scegliibili e mostrano il loro effetto sul prezzo",
+        "È visibile quando uscirà la cassa per l'opzione di pagamento scelta",
+        "Tutti i valori importati dal motore, nessuna costante riscritta",
+        "Sezioni esistenti invariate; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/supply.ts",
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ]
+    },
+    {
+      "id": "S14-2",
+      "title": "UI: tab HR con mix, assunzioni e mercato del lavoro",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "abandoned",
+      "deps": [
+        "S14-1"
+      ],
+      "description": "In `apps/web/src/app/page.tsx` aggiungi la sotto-sezione **HR** nel tab Decisioni. Il giocatore deve vedere il proprio organico per livello, poter assumere e licenziare (con i costi e i TEMPI relativi: un Expert non arriva subito), e vedere quante persone sono ancora DISPONIBILI nel bacino condiviso — è l'informazione che rende visibile la competizione coi concorrenti.\n\nMostra la capacità produttiva risultante dal mix accanto a quella degli impianti, così si capisce quale delle due sta limitando. Se la formazione interna è implementata, rendila accessibile. Importa i valori dal motore. Mobile-first. NON toccare le altre sezioni.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Organico per livello visibile, con assunzioni e licenziamenti e i loro costi e tempi",
+        "Disponibilità residua del bacino condiviso visibile",
+        "Chiaro se a limitare è la capacità impianti o quella della forza lavoro",
+        "Sezioni esistenti invariate; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/workforce.ts",
+        "apps/web/src/lib/game-engine/types.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Riformulato col metodo di docs/15: prima si estraggono le sezioni di page.tsx in componenti separati, poi ogni schermata diventa un task su file proprio."
+    },
+    {
+      "id": "S14-3",
+      "title": "UI: schermata di setup partita e cruscotto esteso",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "abandoned",
+      "deps": [
+        "S14-2"
+      ],
+      "description": "In `apps/web/src/app/page.tsx` aggiungi due cose.\n\n1) Una schermata di SETUP a inizio partita dove si scelgono i parametri iniziali (prezzo standard del prodotto, incidenza del costo, profilo di prodotto). Deve mostrare in tempo reale i costi derivati, così si capisce cosa comporta ogni scelta. Chi non vuole scegliere parte coi default e gioca esattamente come oggi.\n2) Nel Cruscotto: scarto produttivo dell'ultimo trimestre, qualità percepita e scorte di materie prime, accanto a quanto già c'è.\n\nImporta i valori dal motore. Mobile-first. NON toccare le sezioni esistenti.\n\n**Vincoli non negoziabili.**\n- I NUMERI del design sono decisioni: copiali esattamente, non arrotondarli e non sostituirli con valori che ti sembrano più sensati. Ogni valore vive come costante esportata in UN SOLO punto e si importa; non si riscrive dove serve.\n- **Niente costanti cablate se derivabili** dai parametri di setup (vedi S10-1): il costo unitario è `standardPrice × variableCostRatio`, non il numero 55.\n- **NON cancellare né modificare test esistenti.** Aggiungi i tuoi in coda. Un tentativo precedente ha riscritto un file di test da capo perdendo 11 test, e il gate non se n'era accorto perché un test cancellato non può fallire: ora c'è un controllo che lo blocca.\n- **Non-regressione**: con la leva disattivata (flag di default) il comportamento deve essere IDENTICO a oggi. Scrivi un test nello scenario dove un default sbagliato divergerebbe — non basta un test dove i due comportamenti coincidono comunque.\n- NON modificare `index.ts`: è il barrel del motore e lo aggiorna il coordinamento al merge, per non entrare in conflitto con gli agenti che lavorano in parallelo.",
+      "acceptance": [
+        "Schermata di setup con parametri iniziali e costi derivati mostrati in tempo reale",
+        "Chi usa i default gioca esattamente come oggi",
+        "Cruscotto esteso con scarto, qualità percepita e scorte materie prime",
+        "Sezioni esistenti invariate; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx",
+        "apps/web/src/lib/game-engine/setup.ts",
+        "apps/web/src/lib/game-engine/quality.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "closed_note": "Riformulato col metodo di docs/15: prima si estraggono le sezioni di page.tsx in componenti separati, poi ogni schermata diventa un task su file proprio."
+    },
+    {
+      "id": "S14-4",
+      "title": "Code review dell'implementazione completa",
+      "role": "code-reviewer",
+      "kind": "review",
+      "status": "abandoned",
+      "deps": [
+        "S13-3",
+        "S14-1",
+        "S14-2",
+        "S14-3"
+      ],
+      "description": "Revisiona sulla base dei diff reali. Verifica in particolare: che i valori numerici corrispondano a quelli decisi nei design (è già successo tre volte che un agente li sostituisse di testa sua); che non esistano costanti cablate dove il design prevede derivazione dai parametri di setup; che nessuna formula sia duplicata fra motore e UI; che il vincolo di non-regressione regga, cercando ATTIVAMENTE uno scenario in cui i default divergerebbero; che nessun test preesistente sia stato cancellato; che nulla usi Math.random. Se un diff non ti è stato fornito, DICHIARALO invece di dedurre.",
+      "acceptance": [
+        "Verificata la corrispondenza fra numeri implementati e numeri decisi nei design",
+        "Verificata l'assenza di costanti cablate dove serve derivazione",
+        "Cercato attivamente uno scenario di regressione sui default"
+      ],
+      "closed_note": "Riformulato col metodo di docs/15: prima si estraggono le sezioni di page.tsx in componenti separati, poi ogni schermata diventa un task su file proprio."
+    },
+    {
+      "id": "S15-1",
+      "title": "Estrarre le sezioni di page.tsx in componenti separati",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [],
+      "description": "**Questo task lo esegue il COORDINAMENTO (Claude), non un agente.** Tocca `page.tsx`, un file da oltre 700 righe: per il metodo di `docs/15-metodo-di-lavoro.md` i file grandi e condivisi sono lavoro del coordinamento. Ogni task UI affidato a un agente su questo file è fallito.\n\nEstrai le sezioni ESISTENTI del tab Decisioni in componenti separati, uno per file: `apps/web/src/app/components/SezioneCommerciale.tsx`, `apps/web/src/app/components/SezioneOperations.tsx`, `apps/web/src/app/components/SezioneAcquisti.tsx`, `apps/web/src/app/components/SezioneMarketing.tsx`.\n\n**È un refactor puro: NON cambiare NIENTE di ciò che si vede o si calcola.** Ogni componente riceve via props ciò che gli serve e chiama gli stessi handler di adesso. Nessuna nuova funzionalità, nessuna formula spostata o riscritta, nessun valore modificato. Se al termine l'interfaccia si comporta anche solo un po' diversamente, il refactor è sbagliato.\n\nNon toccare i file del motore. Non toccare i file di test esistenti.",
+      "acceptance": [
+        "Quattro componenti in file separati, uno per sezione",
+        "page.tsx si riduce a orchestrazione: stato, handler e composizione",
+        "Comportamento visivo e numerico IDENTICO a prima del refactor",
+        "Nessun file del motore modificato; nessun test esistente cancellato; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/app/page.tsx"
+      ],
+      "must_touch": [
+        "apps/web/src/app/components/SezioneAcquisti.tsx"
+      ],
+      "note": "Fatto dal coordinamento il 2026-07-28. page.tsx da 931 a 219 righe. Estratti: SezioneCommerciale/Operations/Acquisti/Marketing, TabCruscotto/Simula/Mercato/Classifica, hook useGioco (stato partita), lib/ui/format.ts e lib/ui/kpi.ts. Comportamento verificato identico con partita di 2 trimestri a input fissi e seed congelato: 247 righe di interfaccia confrontate dopo ogni estrazione, sempre identiche. 185 test verdi, build ok."
+    },
+    {
+      "id": "S15-2",
+      "title": "Componente: sezione HR (organico, assunzioni, bacino)",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S15-1"
+      ],
+      "description": "Crea il componente NUOVO `apps/web/src/app/components/SezioneHR.tsx` sul modello di quelli estratti nel task da cui dipendi. Deve mostrare l'organico per livello, permettere assunzioni e licenziamenti con i loro costi e TEMPI (un Expert non arriva subito), e mostrare quante persone restano disponibili nel bacino condiviso — è l'informazione che rende visibile la competizione con i concorrenti.\n\nMostra anche la capacità produttiva risultante dal mix accanto a quella degli impianti, così si capisce quale delle due sta limitando.\n\nTutti i valori e le formule si importano da `apps/web/src/lib/game-engine/workforce.ts`: non riscriverne nessuna nella UI. In page.tsx aggiungi solo lo stato e il collegamento del nuovo componente, senza toccare le altre sezioni.",
+      "acceptance": [
+        "Componente su file proprio, con organico per livello e assunzioni/licenziamenti",
+        "Costi e tempi di ciascun livello presi da workforce.ts, non riscritti",
+        "Disponibilità residua del bacino visibile",
+        "Chiaro se a limitare è la capacità impianti o quella della forza lavoro",
+        "Altre sezioni invariate; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/workforce.ts",
+        "apps/web/src/app/components/SezioneAcquisti.tsx"
+      ],
+      "must_touch": [
+        "apps/web/src/app/components/SezioneHR.tsx"
+      ],
+      "note": "Componente consegnato e portato su main il 2026-07-28, MA NON COLLEGATO al gioco: scelta dell'utente (opzione 'in frigo'), si accende dopo il playtest. Gate verde al primo tentativo. Colori chiari cablati sostituiti con le variabili del tema scuro. L'accensione e' il task S16-2."
+    },
+    {
+      "id": "S15-3",
+      "title": "Componente: schermata di setup partita",
+      "role": "frontend-developer",
+      "kind": "code",
+      "status": "done",
+      "deps": [
+        "S15-1"
+      ],
+      "description": "Crea il componente NUOVO `apps/web/src/app/components/SetupPartita.tsx`: la schermata iniziale in cui si scelgono i parametri di partita (prezzo standard del prodotto, incidenza del costo, profilo di prodotto). Deve mostrare in tempo reale i costi derivati, così si capisce cosa comporta ogni scelta.\n\nUsa `apps/web/src/lib/game-engine/setup.ts`: i profili sono già lì (`PRODUCT_PROFILES`), e `deriveCosts()` fa il calcolo. Non riscrivere nessuna formula.\n\nChi non vuole scegliere parte coi default e gioca esattamente come oggi: dev'esserci un modo evidente per saltare la schermata.\n\nATTENZIONE (primo tentativo scartato il 2026-07-28): era stato scritto con classi Tailwind, che in questo progetto NON esistono (nessuna dipendenza, nessun config): il risultato era una pagina senza stile. Usa le classi di apps/web/src/app/globals.css (card, stat-grid/stat/stat-k/stat-v, prod-row/prod-label/prod-value, btn, hint, subtabs/subtab-pill) e imita apps/web/src/app/components/SezioneAcquisti.tsx. Il tema e' SCURO: niente colori chiari cablati. Mobile-first, 375px di larghezza.",
+      "acceptance": [
+        "Componente su file proprio, con i parametri di setup e i costi derivati in tempo reale",
+        "Profili di prodotto presi da PRODUCT_PROFILES, formule da deriveCosts()",
+        "Si può saltare e partire coi default, giocando come oggi",
+        "Altre sezioni invariate; build e test verdi"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/setup.ts"
+      ],
+      "must_touch": [
+        "apps/web/src/app/components/SetupPartita.tsx"
+      ],
+      "note": "Fatto il 2026-07-28. Primo tentativo dell'agente SCARTATO (scritto in Tailwind, che qui non esiste). Secondo tentativo, dopo aver aggiunto le convenzioni UI al rulebook: componente idiomatico, 125 righe. Integrazione fatta dal coordinamento: stato del setup nell'hook, config del motore derivata dai parametri, estremi del cursore del prezzo legati al prezzo di riferimento, e i rivali giocano con la stessa economia. Chi salta il setup rigioca IDENTICO alla baseline (verificato: 0 differenze sui numeri, 4 righe di sola formattazione delle etichette del cursore). Corretto un errore di idratazione da toLocaleString() senza locale."
+    },
+    {
+      "id": "S15-4",
+      "title": "Causa delle vendite perse: il motore la dice, la UI la spiega",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [
+        "S15-1"
+      ],
+      "description": "Difetto trovato giocando durante S15-1: il messaggio delle vendite perse dava SEMPRE la colpa alla capacita', anche quando era tripla della domanda, consigliando stabilimenti da 250.000 euro inutili. Aggiunto `lostSalesCause` a PlayerResult (capacity | materials | production | scrap), calcolato nel motore; la UI si limita a scegliere il testo.",
+      "acceptance": [
+        "La causa la decide il motore, nessuna formula duplicata nella UI",
+        "Messaggio diverso e corretto per ciascuna delle quattro cause",
+        "L'avviso 'compra stabilimenti' non compare piu' se le scorte coprono la domanda",
+        "Test sul caso capacita' abbondante + produzione bassa; suite verde"
+      ],
+      "files": [
+        "apps/web/src/lib/game-engine/simulate.ts",
+        "apps/web/src/lib/game-engine/types.ts",
+        "apps/web/src/app/components/TabMercato.tsx",
+        "apps/web/src/app/hooks/useGioco.ts"
+      ],
+      "note": "Fatto dal coordinamento il 2026-07-28. 8 test nuovi in lost-sales-cause.test.ts (193 totali verdi). Verificato giocando: capacita' 12.000 con produzione 2.000 ora dice 'la capacita' non era il limite'; con 1.559 in magazzino e domanda 3.640 > capacita' 3.000 l'avviso sugli stabilimenti non compare piu'."
+    },
+    {
+      "id": "S16-1",
+      "title": "Playtest e ribilanciamento del motore",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "review",
+      "deps": [
+        "S18-1",
+        "S18-2"
+      ],
+      "description": "Nessuno dei numeri decisi dagli esperti e' mai stato validato giocando. Giocare partite intere (8 trimestri) con strategie diverse e riportare cosa non torna. Due sospetti gia' noti: la corsa al ribasso dei rivali (il profilo aggressivo arriva a perdere 36.000 euro in un trimestre) e se la volatilita' del mercato basta a rendere sensate le scelte. Verificare anche i tre profili di prodotto della schermata di setup (standard, premium, commodity): col profilo premium il margine stimato risultava molto alto (45%).",
+      "acceptance": [
+        "Almeno tre partite complete con strategie diverse, numeri riportati",
+        "Elenco degli squilibri trovati, ciascuno con i dati che lo mostrano",
+        "Proposta di ritaratura dei parametri, motivata"
+      ],
+      "note": "Dipende dal ridisegno dell'interfaccia: il committente ha detto di non riuscire a giocarci, e un playtest su un'interfaccia che ostacola non misura il gioco ma l'interfaccia. Non e' comunque lavoro da agenti: richiede di GIOCARE."
+    },
+    {
+      "id": "S16-2",
+      "title": "Accendere la leva HR (decisioni di design aperte)",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "review",
+      "deps": [
+        "S16-1"
+      ],
+      "description": "Il componente `apps/web/src/app/components/SezioneHR.tsx` e' pronto ma NON collegato. Prima di collegarlo servono tre decisioni di design:\n1. TEMPI: il motore da' a ogni livello un `hiringQuarters` (junior 1, skilled 2, expert 3). Le assunzioni diventano una coda con arrivo differito, oppure si semplifica?\n2. ASTA: `resolveHiringAuction` prevede un bacino conteso, ma i rivali non hanno decisioni di organico. Che regola di assunzione seguono Alfa e Beta?\n3. BILANCIAMENTO: con la leva attiva capacita' = min(impianti, forza lavoro) e il costo del personale entra nei fissi. Quanto cambia la partita? Va ritarato prima o dopo?",
+      "acceptance": [
+        "Le tre decisioni prese e motivate, con i numeri",
+        "Regola di assunzione dei rivali definita in modo implementabile",
+        "Indicazione se serve ritarare i parametri esistenti e quali"
+      ]
+    },
+    {
+      "id": "S16-3",
+      "title": "Qual è il mix di organico OTTIMO per la qualità (e perché non è «tutti esperti»)",
+      "role": "business-hr",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Serve per costruire un INDICE DI QUALITÀ del prodotto da 0 a 10, dove 10 = condizioni massime. Una delle componenti è la forza lavoro, e il punto chiave richiesto dal committente è questo: **la qualità massima NON si ottiene assumendo solo esperti**, ma con un giusto bilanciamento fra i livelli, come in un'azienda vera.\n\nSpiega e QUANTIFICA perché. Nel motore esistono tre livelli in `apps/web/src/lib/game-engine/workforce.ts` (`junior`, `skilled`, `expert`), ciascuno con salario, produttività, tasso di difetto e tempo di assunzione, più un mix di default `DEFAULT_MIX_PER_PLANT`.\n\nCosa serve in output:\n1. Il mix ideale per la QUALITÀ, espresso in proporzioni fra i tre livelli (es. 2 junior, 3 skilled, 1 expert per stabilimento), con la motivazione di dominio: chi forma chi, chi fa il lavoro ripetitivo, cosa succede a un reparto di soli esperti (noia, turnover, costo, assenza di ricambio) e a uno di soli junior.\n2. Una FUNZIONE che dato un mix qualunque restituisca un punteggio 0..1 di «quanto è bilanciato», che valga 1 sul mix ideale e scenda allontanandosene. Deve essere calcolabile con aritmetica semplice e deve essere NON MONOTONA nel numero di esperti (più esperti non deve significare sempre meglio). Dai la formula esplicita e 4-5 esempi numerici, incluso «tutti esperti» e «tutti junior».\n3. Quanto pesa la forza lavoro rispetto alle materie prime nella qualità finale, con motivazione (oggi il motore usa 60% materiali / 40% personale in `quality.ts`).\n\nNON scrivere codice: servono numeri, formule e motivazioni. Deve essere implementabile e testabile.",
+      "acceptance": [
+        "Mix ideale dichiarato in proporzioni, con motivazione di dominio",
+        "Formula esplicita del punteggio di bilanciamento 0..1, non monotona negli esperti",
+        "Almeno 4 esempi numerici, inclusi «tutti esperti» e «tutti junior»",
+        "Peso della forza lavoro rispetto ai materiali, motivato"
+      ],
+      "note": "Proposta accettata e IMPLEMENTATA il 2026-07-28 in apps/web/src/lib/game-engine/product-quality.ts, con tre correzioni fatte in revisione (vedi intestazione del file)."
+    },
+    {
+      "id": "S16-4",
+      "title": "Quanto la pubblicità contribuisce alla qualità PERCEPITA (e quanto no)",
+      "role": "business-marketing",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "Serve per un INDICE DI QUALITÀ 0..10 mostrato ai giocatori. Il committente vuole che la pubblicità contribuisca **in piccola parte**, come qualità percepita: la comunicazione sposta la percezione ma non deve poter sostituire la sostanza.\n\nNel motore esistono già: `apps/web/src/lib/game-engine/marketing.ts` (budget diviso fra brand e campagne, brand che decade del 10% a trimestre, rendimenti decrescenti) e in `quality.ts` una qualità percepita che insegue quella reale con smoothing 0,25 (~4 trimestri).\n\nCosa serve in output:\n1. Quanto può spostare la pubblicità la qualità percepita rispetto a quella reale: un tetto esplicito (es. «al massimo ±X punti su 10, e solo con brand accumulato alto»), motivato.\n2. Se agisce sul LIVELLO percepito o sulla VELOCITÀ con cui la percezione insegue la realtà (o entrambe), e perché. Attenzione: se un prodotto è scadente, spingere pubblicità deve poter peggiorare la reputazione nel tempo — dillo se sei d'accordo e come modellarlo.\n3. Formula esplicita del contributo, con 4-5 esempi numerici (budget zero, budget medio, budget alto su prodotto buono, budget alto su prodotto scadente).\n\nNON scrivere codice: numeri, formule e motivazioni. Deve essere implementabile e testabile.",
+      "acceptance": [
+        "Tetto esplicito al contributo della pubblicità, motivato",
+        "Chiarito se agisce sul livello, sulla velocità o entrambi",
+        "Formula esplicita con almeno 4 esempi numerici",
+        "Trattato il caso «molta pubblicità su prodotto scadente»"
+      ],
+      "note": "Proposta accettata e IMPLEMENTATA il 2026-07-28 in apps/web/src/lib/game-engine/product-quality.ts, con tre correzioni fatte in revisione (vedi intestazione del file)."
+    },
+    {
+      "id": "S16-5",
+      "title": "Indice di qualità 0-10 del prodotto e suo effetto sulla domanda",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S16-3",
+        "S16-4"
+      ],
+      "description": "Consolida in UN SOLO indice di qualità del prodotto, su scala **0..10**, dove 10 = condizioni massime di qualità. È una richiesta esplicita del committente: vuole poter mostrare ai giocatori un valore confrontabile, così che la qualità diventi un ulteriore terreno di gara oltre al prezzo.\n\nComponenti da combinare (usa i risultati dei task da cui dipendi):\n- **materie prime**: 4 livelli in `supply.ts` (economy/standard/premium/ultra), già con un indice 0-100 in `quality.ts` (`MATERIAL_QUALITY_INDEX`);\n- **forza lavoro**: NON «più esperti = meglio», ma il mix bilanciato definito in S16-3;\n- **pubblicità**: contributo piccolo, come qualità percepita, definito in S16-4;\n- valuta se serve altro (es. straordinari che peggiorano la qualità: in `quality.ts` `OVERTIME_SCRAP_PENALTY` esiste già).\n\nPoi la parte più delicata, su cui il committente ha detto esplicitamente che NON vuole un numero fisso deciso a caso ma una formula ragionata: **quanto la qualità sposta la domanda**. Oggi in `quality.ts` c'è un moltiplicatore `(percepita/riferimento)^1.2` sull'attrattività, accanto al prezzo. Proponi come la scala 0..10 entra in quella formula e con quale elasticità, argomentando sul rapporto qualità/prezzo: un prodotto a qualità 8 deve poter giustificare quale premio di prezzo? Dai la risposta in numeri.\n\nVINCOLO DI NON-REGRESSIONE: con le leve spente (materiale standard, organico di default, nessuna pubblicità) l'indice deve produrre un moltiplicatore **esattamente 1**, così il gioco attuale non cambia. Dichiara quale punto della scala 0..10 corrisponde a questa configurazione di partenza.\n\nNON scrivere codice: formula, numeri, tabella di esempi. Deve essere implementabile e testabile, e sarà implementato dal coordinamento.\n\n---\nREVISIONE DELLE PROPOSTE DA CUI DIPENDI (fatta dal coordinamento, 2026-07-28): leggile, ma con due avvertenze.\n\n1) **S16-4 (marketing) ha un difetto sostanziale, verificato a mano.** La penalita' di overpromising proposta NON distingue un prodotto buono da uno scadente. Calcolando il punto fisso della loro formula (perceivedNext = p + s*(target-p), poi penalita' 0,30 sull'eccesso oltre real+1) con brand=100 e smoothing 0,40 si ottiene sempre **realta' + 1,24**: qualita' reale 7 -> 8,24; 5 -> 6,24; 3 -> 4,24. Il documento dichiara 3,95 per il prodotto scadente ed e' un errore di calcolo. Serve un meccanismo che punisca DAVVERO la pubblicita' su prodotto scadente: per esempio un bonus proporzionale alla qualita' reale, oppure una penalita' che cresce piu' che linearmente con lo scarto. Proponi tu la correzione e VERIFICA il punto fisso con i numeri, non a parole.\n\n2) **S16-3 (HR) e' solido**: la funzione di bilanciamento (coefficiente di Bhattacharyya sul mix target 1:3:2) l'ho verificata su tutti gli esempi e torna. Nota pero' che e' molto piatta vicino all'ottimo (60% expert = 0,915, cioe' solo -8%) e ripidissima agli estremi (tutti expert = 0,333). Valuta se questa forma e' quella giusta per il gioco: uno sbilanciamento moderato oggi quasi non si paga. Inoltre S16-3 propone di cambiare i pesi materiali/personale da 60/40 a 55/45: decidi tu e motiva.",
+      "acceptance": [
+        "Un solo indice 0..10 con formula esplicita e pesi motivati",
+        "Tabella di esempi: almeno 5 configurazioni con il punteggio risultante",
+        "Effetto sulla domanda argomentato in numeri, non un coefficiente arbitrario",
+        "Dichiarato il punto della scala che corrisponde alla configurazione attuale, con moltiplicatore 1 (non-regressione)"
+      ],
+      "note": "Proposta accettata e IMPLEMENTATA il 2026-07-28 in apps/web/src/lib/game-engine/product-quality.ts, con tre correzioni fatte in revisione (vedi intestazione del file)."
+    },
+    {
+      "id": "S16-6",
+      "title": "Materie prime davvero consumate: scorta iniziale, riapprovvigionamento, vincolo di produzione",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [],
+      "description": "**Lo esegue il coordinamento.** Oggi si possono comprare materie prime ma non servono a nulla: il consumo non è collegato. Due difetti veri trovati nel motore il 2026-07-28:\n1. `simulate.ts` chiama `evolveSupplyState` con `currentQuarter` **cablato a 0** e senza le opzioni di consegna/qualità/pagamento: gli ordini non arrivano MAI e la produzione va a zero (verificato: 3 trimestri, prodotto sempre 0).\n2. La materia prima è contata DUE volte: 25 €/unità dentro `productionCost` (da `unitCostFromComponents`) e di nuovo come `rawMaterialPurchaseCost`.\n\nDa fare: scorta iniziale settabile nella schermata di setup, ordini che arrivano davvero secondo il lead time scelto, produzione limitata dalle materie disponibili, costo non duplicato. I rivali hanno riapprovvigionamento automatico a condizioni standard (scelta dell'utente): non si bloccano mai.",
+      "acceptance": [
+        "Gli ordini arrivano nel trimestre giusto secondo il lead time scelto",
+        "Senza materie prime non si produce oltre il disponibile",
+        "Scorta iniziale settabile a inizio partita",
+        "Nessun doppio conteggio del costo delle materie prime",
+        "I rivali non si bloccano mai",
+        "Chi non tocca nulla gioca come prima (non-regressione verificata giocando)"
+      ],
+      "note": "Fatto il 2026-07-28. Tre difetti del motore corretti: (1) currentQuarter cablato a 0, per cui gli ordini non arrivavano MAI e la produzione restava a zero; (2) materia prima contata due volte (dentro productionCost e come costo d'ordine); (3) la consegna 'express' (lead 0), che l'interfaccia annuncia come 'subito', finiva fra gli ordini in transito e arrivava il trimestre dopo. Aggiunto rawMaterialState al risultato: senza, la UI non poteva riportare gli ordini in viaggio. Scorta iniziale settabile nel setup (default 6.000). Verificato giocando: 6000 -> 3000 -> 0 con avviso, e un ordine standard piazzato a T1 arriva a T2 e sblocca la produzione. 7 test nuovi, 200 verdi."
+    },
+    {
+      "id": "S16-7",
+      "title": "Qualità: taratura della scala e strategie dei rivali",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "review",
+      "deps": [
+        "S16-1"
+      ],
+      "description": "Due questioni aperte dopo l'implementazione dell'indice di qualita' (2026-07-28), da risolvere COL PLAYTEST alla mano.\n\n1. **La scala e' compressa in alto.** La configurazione di partenza vale gia' 8,4 su 10 (materiale standard 7,5 + organico di default quasi bilanciato, 0,959). Il massimo raggiungibile e' 10, il minimo realistico ~4: al giocatore la media appare come 'ottimo'. Va ritarata la normalizzazione perche' la scala sia leggibile? Nota che i valori materiale del documento S16-5 (Economy 3,0 / Standard 5,0) NON corrispondono alla sua stessa formula (indice/10 da' 6,0 e 7,5): decidere quale dei due si voleva.\n\n2. **I rivali non hanno strategia di qualita'.** Oggi restano fissi al riferimento (8,4) perche' non hanno decisioni di acquisto: il giocatore vince sempre il confronto comprando meglio. Serve una regola coerente coi profili (Alfa aggressivo, Beta premium): che materiale comprano, e quanto sono disposti a pagarlo?",
+      "acceptance": [
+        "Deciso se e come ritarare la scala 0..10, con i numeri della partita giocata",
+        "Regola di qualita' dei rivali definita per profilo e implementabile",
+        "Verificato che la qualita' resti una leva sensata accanto al prezzo, non dominante"
+      ]
+    },
+    {
+      "id": "S17-1",
+      "title": "Il modello contabile minimo del gioco (conto economico vs cassa)",
+      "role": "business-amministrativo",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "FATTI MISURATI SUL MOTORE (sonda del 2026-07-29, non ipotesi):\n- Ordine di materie prime con pagamento 'a 60 giorni': costa 105.000 € invece di 95.000 (sovrapprezzo per la dilazione) MA la cassa esce comunque SUBITO. Cassa finale 817.800 € contro 827.800 € del pagamento anticipato: la dilazione e' strettamente PEGGIORE, si paga un premio per un beneficio mai ricevuto. Il modulo `supply.ts` calcola gia' `accountsPayableDue` con la scadenza giusta, ma `simulate.ts` non lo usa: somma l'intero costo d'acquisto ai costi del trimestre.\n- L'acquisto di uno stabilimento (250.000 €) riduce il PROFITTO del trimestre di 250.000 €: un investimento e' trattato come un costo d'esercizio, senza ammortamento.\n- La cassa oggi si calcola cosi': cassa_nuova = cassa_precedente + profitto. Non esiste un flusso di cassa distinto dal conto economico.\n- Il giocatore ha segnalato di persona la confusione fra cassa, fatturato e risultato.\n\nDefinisci il modello contabile MINIMO ma corretto per un gioco a trimestri, in cui il giocatore deve capire la differenza fra 'ho guadagnato' e 'ho i soldi'.\n\nServe:\n1. Quali prospetti servono davvero (conto economico, flusso di cassa, e se serve un minimo di stato patrimoniale) e quali voci in ciascuno. Tieni il numero di voci PICCOLO: e' un gioco, non un gestionale.\n2. Il trattamento corretto di: acquisto materie prime (competenza vs cassa), magazzino materie prime e prodotti finiti, debiti verso fornitori, acquisto stabilimenti (investimento + ammortamento: proponi una durata e il perche'), costo del personale, marketing.\n3. La quadratura: quale identita' deve valere sempre fra i prospetti, cosi' che si possa scrivere un test automatico che verifichi che 'i conti tornano'.\n4. Un esempio numerico completo di UN trimestre, con tutte le voci, dove acquisto e pagamento cadono in trimestri diversi.\n\nNON scrivere codice. Numeri, voci, identita' contabili.",
+      "acceptance": [
+        "Prospetti e voci definiti, pochi e chiari",
+        "Trattamento esplicito di acquisti, magazzino, debiti fornitori, investimenti e ammortamento",
+        "Identita' di quadratura verificabile con un test",
+        "Esempio numerico di un trimestre con acquisto e pagamento sfasati"
+      ],
+      "note": "Proposta accettata il 2026-07-29. Piano in 9 passi: implementato P1 (cassa sui pagamenti) + sezione Conti. P2-P9 nei task S17-6..S17-9."
+    },
+    {
+      "id": "S17-2",
+      "title": "Il flusso di cassa e lo scadenzario: cosa esce e quando",
+      "role": "business-finance",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "FATTI MISURATI SUL MOTORE (sonda del 2026-07-29, non ipotesi):\n- Ordine di materie prime con pagamento 'a 60 giorni': costa 105.000 € invece di 95.000 (sovrapprezzo per la dilazione) MA la cassa esce comunque SUBITO. Cassa finale 817.800 € contro 827.800 € del pagamento anticipato: la dilazione e' strettamente PEGGIORE, si paga un premio per un beneficio mai ricevuto. Il modulo `supply.ts` calcola gia' `accountsPayableDue` con la scadenza giusta, ma `simulate.ts` non lo usa: somma l'intero costo d'acquisto ai costi del trimestre.\n- L'acquisto di uno stabilimento (250.000 €) riduce il PROFITTO del trimestre di 250.000 €: un investimento e' trattato come un costo d'esercizio, senza ammortamento.\n- La cassa oggi si calcola cosi': cassa_nuova = cassa_precedente + profitto. Non esiste un flusso di cassa distinto dal conto economico.\n- Il giocatore ha segnalato di persona la confusione fra cassa, fatturato e risultato.\n\nDefinisci come deve funzionare la CASSA nel gioco, dato che oggi coincide col profitto.\n\nServe:\n1. Lo scadenzario: ogni decisione genera uscite in quale trimestre? (materie prime secondo i termini di pagamento scelti, personale, marketing, investimenti, costi fissi). E le entrate dalle vendite: incasso immediato o anche qui ci sono termini verso i clienti? Se proponi termini di incasso, dillo esplicitamente perche' e' una leva nuova.\n2. Cosa succede se la cassa va sotto zero: oggi esiste uno 'scoperto' senza conseguenze. Proponi interessi, un fido massimo, e cosa succede se lo si sfonda (e' un gioco: la conseguenza dev'essere comprensibile, non una regola punitiva oscura).\n3. Quale vantaggio REALE deve dare pagare a 60/90 giorni, in modo che il sovrapprezzo abbia senso. Oggi costa di piu' e non da' nulla.\n4. Cosa deve vedere il giocatore PRIMA di decidere, per non trovarsi a secco a sorpresa.\n\nNON scrivere codice. Numeri e regole.",
+      "acceptance": [
+        "Scadenzario completo di uscite ed entrate per ciascuna decisione",
+        "Regole dello scoperto: costo, limite, conseguenze",
+        "Vantaggio della dilazione quantificato, coerente col sovrapprezzo esistente",
+        "Elenco di cosa mostrare al giocatore prima della chiusura del trimestre"
+      ],
+      "note": "Proposta accettata il 2026-07-29. Piano in 9 passi: implementato P1 (cassa sui pagamenti) + sezione Conti. P2-P9 nei task S17-6..S17-9."
+    },
+    {
+      "id": "S17-3",
+      "title": "La sezione Contabilità lato giocatore: cosa mostrare dopo ogni trimestre",
+      "role": "business-controlling",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "FATTI MISURATI SUL MOTORE (sonda del 2026-07-29, non ipotesi):\n- Ordine di materie prime con pagamento 'a 60 giorni': costa 105.000 € invece di 95.000 (sovrapprezzo per la dilazione) MA la cassa esce comunque SUBITO. Cassa finale 817.800 € contro 827.800 € del pagamento anticipato: la dilazione e' strettamente PEGGIORE, si paga un premio per un beneficio mai ricevuto. Il modulo `supply.ts` calcola gia' `accountsPayableDue` con la scadenza giusta, ma `simulate.ts` non lo usa: somma l'intero costo d'acquisto ai costi del trimestre.\n- L'acquisto di uno stabilimento (250.000 €) riduce il PROFITTO del trimestre di 250.000 €: un investimento e' trattato come un costo d'esercizio, senza ammortamento.\n- La cassa oggi si calcola cosi': cassa_nuova = cassa_precedente + profitto. Non esiste un flusso di cassa distinto dal conto economico.\n- Il giocatore ha segnalato di persona la confusione fra cassa, fatturato e risultato.\n\nIl committente vuole una SEZIONE DEDICATA alla contabilita' che faccia vedere «cosa e' successo alla contabilita' nell'ultima giocata». Progettala.\n\nServe:\n1. Il prospetto del trimestre appena chiuso: quali righe, in che ordine, con quali totali intermedi. Dev'essere leggibile su un TELEFONO (larghezza 375px): niente tabelle a sei colonne. Proponi la gerarchia: cosa si vede subito e cosa si apre a richiesta.\n2. La riconciliazione che risponde alla domanda del giocatore: «ho fatto utile ma perche' ho meno soldi?». Deve essere una sequenza leggibile da utile a variazione di cassa.\n3. Quali confronti servono: trimestre precedente, andamento sugli 8 trimestri, scostamenti.\n4. Quali KPI di questa sezione meritano un semaforo e con quali soglie (nel gioco esistono gia' 6 KPI con semaforo in `lib/ui/kpi.ts`: non duplicarli, semmai integrali).\n\nNON scrivere codice ne' HTML: struttura, voci, ordine, soglie.",
+      "acceptance": [
+        "Prospetto del trimestre definito riga per riga, leggibile su telefono",
+        "Riconciliazione esplicita da utile a variazione di cassa",
+        "Confronti e andamento definiti",
+        "KPI con soglie, senza duplicare quelli esistenti"
+      ],
+      "note": "Proposta accettata il 2026-07-29. Piano in 9 passi: implementato P1 (cassa sui pagamenti) + sezione Conti. P2-P9 nei task S17-6..S17-9."
+    },
+    {
+      "id": "S17-4",
+      "title": "Ordini multipli di materie prime: regole e cosa vede il giocatore",
+      "role": "business-supply-chain",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "FATTI MISURATI SUL MOTORE (sonda del 2026-07-29, non ipotesi):\n- Ordine di materie prime con pagamento 'a 60 giorni': costa 105.000 € invece di 95.000 (sovrapprezzo per la dilazione) MA la cassa esce comunque SUBITO. Cassa finale 817.800 € contro 827.800 € del pagamento anticipato: la dilazione e' strettamente PEGGIORE, si paga un premio per un beneficio mai ricevuto. Il modulo `supply.ts` calcola gia' `accountsPayableDue` con la scadenza giusta, ma `simulate.ts` non lo usa: somma l'intero costo d'acquisto ai costi del trimestre.\n- L'acquisto di uno stabilimento (250.000 €) riduce il PROFITTO del trimestre di 250.000 €: un investimento e' trattato come un costo d'esercizio, senza ammortamento.\n- La cassa oggi si calcola cosi': cassa_nuova = cassa_precedente + profitto. Non esiste un flusso di cassa distinto dal conto economico.\n- Il giocatore ha segnalato di persona la confusione fra cassa, fatturato e risultato.\n\nOggi si puo' piazzare UN SOLO ordine per trimestre, con una sola combinazione di consegna, qualita' e pagamento. Il committente vuole poterne fare PIU' D'UNO, per organizzarsi in anticipo comprando a scadenze diverse.\n\nServe:\n1. Le regole: quanti ordini aperti contemporaneamente ha senso permettere? Si possono annullare o modificare? Cosa succede se arrivano insieme e il magazzino 'scoppia' (c'e' un costo di giacenza di 1,80 €/kit/trimestre)? Serve un limite di capacita' del magazzino?\n2. Se ordini diversi hanno QUALITA' diversa, con che criterio si consuma il materiale in produzione, e quale qualita' risulta per il prodotto finito? (Nel gioco la qualita' del materiale pesa per il 55% sull'indice di qualita' del prodotto.) Media pesata, FIFO, peggiore? Motiva.\n3. Cosa deve vedere il giocatore: elenco degli ordini in viaggio con quantita', arrivo, pagamento; e come capire a colpo d'occhio se la copertura basta per la produzione prevista.\n\nNON scrivere codice. Regole e numeri.",
+      "acceptance": [
+        "Regole su numero di ordini, annullamento, limiti di magazzino",
+        "Criterio di consumo con qualita' miste e qualita' risultante, motivato",
+        "Cosa mostrare al giocatore sugli ordini aperti",
+        "Trattato il caso di consegne che si accavallano"
+      ],
+      "note": "Proposta accettata il 2026-07-29. Piano in 9 passi: implementato P1 (cassa sui pagamenti) + sezione Conti. P2-P9 nei task S17-6..S17-9."
+    },
+    {
+      "id": "S17-5",
+      "title": "Specifica unica: contabilità, cassa e ordini multipli",
+      "role": "software-architect",
+      "kind": "design",
+      "status": "done",
+      "deps": [
+        "S17-1",
+        "S17-2",
+        "S17-3",
+        "S17-4"
+      ],
+      "description": "Consolida i quattro documenti da cui dipendi in UNA specifica implementabile, risolvendo le contraddizioni fra loro (segnalale esplicitamente invece di nasconderle).\n\nFATTI MISURATI SUL MOTORE (sonda del 2026-07-29, non ipotesi):\n- Ordine di materie prime con pagamento 'a 60 giorni': costa 105.000 € invece di 95.000 (sovrapprezzo per la dilazione) MA la cassa esce comunque SUBITO. Cassa finale 817.800 € contro 827.800 € del pagamento anticipato: la dilazione e' strettamente PEGGIORE, si paga un premio per un beneficio mai ricevuto. Il modulo `supply.ts` calcola gia' `accountsPayableDue` con la scadenza giusta, ma `simulate.ts` non lo usa: somma l'intero costo d'acquisto ai costi del trimestre.\n- L'acquisto di uno stabilimento (250.000 €) riduce il PROFITTO del trimestre di 250.000 €: un investimento e' trattato come un costo d'esercizio, senza ammortamento.\n- La cassa oggi si calcola cosi': cassa_nuova = cassa_precedente + profitto. Non esiste un flusso di cassa distinto dal conto economico.\n- Il giocatore ha segnalato di persona la confusione fra cassa, fatturato e risultato.\n\nVincoli tecnici del motore (rispettali o dichiara perche' vanno cambiati):\n- `simulateQuarter` e' una funzione PURA e deterministica: lo stato fra trimestri viaggia dentro e fuori come parametri (`startingInventories`, `brandStates`, `cashState`, `rawMaterialInventoryState`...). Serve dire QUALE nuovo stato serve e come si riporta.\n- Regola di non-regressione: chi non usa le leve nuove deve giocare come prima. Dichiara cosa cambia comunque per tutti (l'ammortamento, per esempio, cambia il profitto di chiunque compri impianti: e' accettabile? va detto).\n- La UI non ricalcola formule: tutto quel che mostra arriva dal motore. Elenca quindi i campi che il risultato del trimestre deve esporre in piu'.\n\nServe: modello dati (quali strutture nuove), ordine dei calcoli nel trimestre, campi esposti, e un piano in passi implementabili separatamente, dal piu' urgente (i pagamenti che non spostano la cassa) al meno.\n\n---\nREVISIONE DEI QUATTRO DOCUMENTI (coordinamento, 2026-07-29). Tienine conto: sono punti che i quattro non hanno visto o su cui si contraddicono.\n\n1) **Contraddizione dentro S17-1 sul costo del venduto.** Il conto economico dice «cogsMaterials = solo cio' che ENTRA IN PRODUZIONE nel trimestre», ma la tabella dei trattamenti dice anche «produzione -> prodotti finiti: invRaw giu', invFinished su'». Le due cose non stanno insieme: se il prodotto finito va a magazzino, il costo NON deve colpire il conto economico finche' non si vende, altrimenti chi produce per il magazzino risulta in perdita senza motivo. Decidi tu quale delle due e' la regola, e dichiarala. NOTA: oggi il gioco addebita tutto il costo di produzione nel trimestre in cui si produce, e il magazzino prodotti finiti esiste gia' (`closingInventory`): quindi oggi il difetto c'e' gia' ed e' una delle cause della confusione segnalata dal giocatore.\n\n2) **S17-2 cambia costanti esistenti.** Propone per la dilazione 30/60/90 gg un sovrapprezzo molto piu' basso di quello attuale (60 gg: +2,6% contro il +5% di oggi). Il ragionamento e' corretto — con il +5% attuale e uno scoperto al 3%/trimestre la dilazione non converrebbe MAI — ma va detto esplicitamente che si stanno ritarando i moltiplicatori in `PAYMENT_TERMS_OPTIONS` di `supply.ts`, e vanno dati i nuovi valori.\n\n3) **S17-2 introduce meccaniche nuove e pesanti**: fido, interessi sullo scoperto, vendita forzata di impianti, bancarotta con uscita dalla partita. Sono aggiunte di GIOCO, non correzioni contabili. Mettile in fondo al piano, separate da cio' che serve per far funzionare la cassa, e dichiara quali si possono rimandare.\n\n4) **Conseguenza tecnica che nessuno ha visto.** Con gli ordini multipli e la qualita' a media pesata (S17-4), la qualita' della materia prima non e' piu' UNA scelta ma un valore continuo che dipende dal magazzino. Oggi `product-quality.ts` prende `materialQuality` come codice (`eco|std|prem|ultra`) e lo mappa su un indice: va cambiato per accettare un indice NUMERICO gia' calcolato. Dillo nel modello dati e fra i campi esposti, altrimenti l'indice di qualita' del prodotto e gli ordini multipli non si parlano.\n\n5) **Priorita' chiesta dal committente.** Il problema che ha segnalato giocando e' UNO: paga a 60 giorni e i soldi escono subito. Il primo passo del piano deve risolvere quello e la sezione contabilita' che lo rende visibile; ammortamenti, crediti verso clienti, scoperto e bancarotta vengono dopo.",
+      "acceptance": [
+        "Contraddizioni fra i quattro documenti elencate e risolte",
+        "Modello dati e stato da riportare fra trimestri definiti",
+        "Campi nuovi del risultato elencati",
+        "Piano in passi implementabili, ordinati per urgenza",
+        "Detto esplicitamente cosa cambia per tutti i giocatori e perche' e' accettabile"
+      ],
+      "note": "Proposta accettata il 2026-07-29. Piano in 9 passi: implementato P1 (cassa sui pagamenti) + sezione Conti. P2-P9 nei task S17-6..S17-9."
+    },
+    {
+      "id": "S17-6",
+      "title": "P2 — Ammortamento degli stabilimenti",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [],
+      "description": "Oggi comprare uno stabilimento da 250.000 € abbatte il PROFITTO del trimestre di 250.000: un investimento trattato come costo d'esercizio. Va spostato in ammortamento.\n\nATTENZIONE, divergenza da risolvere: S17-1 propone 20 trimestri (12.500 €/trim), S17-5 ha cambiato a 40 trimestri (6.250 €/trim) senza dichiararlo fra le contraddizioni. Su una partita di 8 trimestri, con 40 l'ammortamento diventa quasi invisibile. Decidere e motivare.\n\nCambia il profitto di CHIUNQUE abbia impianti: servono test di non-regressione espliciti.",
+      "acceptance": [
+        "Comportamento verificato giocando, non solo dai test",
+        "Non-regressione dichiarata: cosa cambia per tutti e perche' e' accettabile",
+        "Sezione Conti aggiornata di conseguenza",
+        "Gate verde"
+      ],
+      "note": "Fatto il 2026-07-29. Scelti 20 trimestri (12.500 €/trim): con i 40 del consolidamento la quota sarebbe stata impercettibile su una partita di 8 trimestri. Capex fuori dal conto economico, ammortamento dentro. 5 test esistenti aggiornati con la motivazione esplicita del cambiamento."
+    },
+    {
+      "id": "S17-7",
+      "title": "P3 — Costo del venduto: la merce a magazzino non pesa sul trimestre in cui la produci",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [
+        "S17-6"
+      ],
+      "description": "Oggi tutto il costo di produzione grava sul trimestre in cui si produce, anche per la merce che resta in magazzino: chi produce scorte risulta in perdita senza motivo. Il costo deve seguire le unita' VENDUTE, e il magazzino prodotti finiti va valorizzato a costo di produzione.",
+      "acceptance": [
+        "Comportamento verificato giocando, non solo dai test",
+        "Non-regressione dichiarata: cosa cambia per tutti e perche' e' accettabile",
+        "Sezione Conti aggiornata di conseguenza",
+        "Gate verde"
+      ],
+      "note": "Fatto il 2026-07-29. Costo del venduto sulle unita' VENDUTE; il magazzino prodotti finiti e' valorizzato a costo medio ponderato e si riporta fra trimestri. Verificato: produrre in eccesso ora peggiora il risultato solo del costo di giacenza."
+    },
+    {
+      "id": "S17-8",
+      "title": "P4 — Ordini multipli di materie prime (richiesta esplicita del giocatore)",
+      "role": "coordinamento-claude",
+      "kind": "code-claude",
+      "status": "done",
+      "deps": [
+        "S17-7"
+      ],
+      "description": "Il giocatore vuole poter piazzare PIU' ordini nello stesso trimestre, con consegne e pagamenti diversi, per organizzarsi in anticipo. Serve il magazzino a lotti (`RawMaterialLot[]`) al posto del contatore scalare, consumo FIFO e qualita' del prodotto come MEDIA PESATA dei lotti consumati (S17-4).\n\nConseguenza gia' identificata: `product-quality.ts` oggi accetta il codice del materiale (eco|std|prem|ultra) e deve accettare un indice NUMERICO calcolato dal motore.",
+      "acceptance": [
+        "Comportamento verificato giocando, non solo dai test",
+        "Non-regressione dichiarata: cosa cambia per tutti e perche' e' accettabile",
+        "Sezione Conti aggiornata di conseguenza",
+        "Gate verde"
+      ],
+      "note": "Fatto il 2026-07-29. Magazzino a LOTTI (prezzo e qualita' per lotto), piu' ordini per trimestre con consegne e pagamenti diversi, consumo FIFO e qualita' del prodotto come media pesata del consumato. 8 test nuovi."
+    },
+    {
+      "id": "S17-9",
+      "title": "P8/P9 — Fase 2: fido, interessi, bancarotta, termini di incasso",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "review",
+      "deps": [
+        "S16-1"
+      ],
+      "description": "Meccaniche di gioco proposte da S17-2 e rimandate: fido di 200.000 €, interessi 3%/trimestre sullo scoperto, penale 6% oltre il fido, vendita forzata di un impianto al 70%, bancarotta con uscita dalla partita; e i termini di incasso verso i clienti come leva. Da valutare DOPO il playtest: sono aggiunte, non correzioni.",
+      "acceptance": [
+        "Comportamento verificato giocando, non solo dai test",
+        "Non-regressione dichiarata: cosa cambia per tutti e perche' e' accettabile",
+        "Sezione Conti aggiornata di conseguenza",
+        "Gate verde"
+      ],
+      "note": "Fase 2: si valuta dopo il playtest, come stabilito quando e' stata rimandata."
+    },
+    {
+      "id": "S18-1",
+      "title": "Ridisegno del flusso di gioco: da 10 destinazioni a un turno che si capisce",
+      "role": "designer-ux",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "PROVE RACCOLTE GIOCANDO (coordinamento, 2026-07-29, viewport 375x812 — non opinioni):\n- Il committente ha detto testualmente: «mi risulta molto difficile al momento giocarci».\n- NAVIGAZIONE: 10 destinazioni per un turno — 6 tab in basso (Cruscotto, Decisioni, Simula, Conti, Mercato, Classifica) piu' 4 sottosezioni dentro Decisioni (Commerciale, Operations, Acquisti, Marketing).\n- La sezione ACQUISTI e' alta 2,2 schermate, ha 17 controlli e 222 parole. Le altre stanno in una schermata con 2-5 controlli.\n- PRIMA SCHERMATA in assoluto: «Configurazione partita», con cursori tipo «incidenza del costo variabile 55% del prezzo» e «volume di riferimento 10.000 unita'». E' un muro di economia prima di aver giocato un solo trimestre.\n- NIENTE GUIDA: la schermata iniziale del gioco e' un cruscotto di numeri fermi (liquidita', capacita', stabilimenti, prezzo, qualita'). Nessuna indicazione su cosa fare, cosa e' urgente, cosa conviene guardare.\n- Ho chiuso un trimestre SENZA decidere nulla e il gioco me l'ha lasciato fare: 1.370 vendite perse, e l'avviso e' arrivato DOPO. Nessun controllo preventivo tipo «non hai ordinato materie prime» o «produci meno della domanda stimata».\n- L'ESITO del trimestre e' una tabella a 4 colonne (azienda, prezzo, qualita', vendite, profitto) piu' un avviso testuale. Non c'e' un racconto di cosa e' successo e perche'.\n- Tutti i valori si impostano con CURSORI: su telefono e' difficile centrare un numero preciso, e non c'e' modo di digitarlo.\n\nVINCOLI: PWA mobile-first, larghezza di riferimento 375px. Niente Tailwind (non e' installato): si usano le classi di `apps/web/src/app/globals.css`, tema SCURO. Vedi docs/12-regole-agenti.md §5.1. Il motore e' completo e documentato in docs/16-come-funziona-il-motore.md: NON si cambiano le regole del gioco, si cambia come si gioca.\n\nRIDISEGNA IL FLUSSO. La domanda a cui rispondere e': cosa deve vedere e fare una persona che apre il gioco per la prima volta, dal primo secondo alla chiusura del primo trimestre?\n\nServe:\n1. **Struttura di navigazione nuova.** Quanti posti servono davvero? Cosa si accorpa, cosa si elimina, cosa diventa secondario. Motiva ogni scelta: oggi 6 tab + 4 sottosezioni.\n2. **Il turno in una schermata.** Proponi come far entrare le decisioni di un trimestre in un flusso che non richieda di girare fra 4 sottosezioni. Ricorda che le decisioni sono: prezzo, stabilimenti/straordinari, quanto produrre, ordini di materie prime (anche piu' d'uno), budget marketing.\n3. **Il primo avvio.** La schermata di configurazione va tolta di mezzo, resa opzionale, o trasformata? Cosa vede chi non ha mai giocato?\n4. **Come si impostano i numeri** su un telefono: cursori, campi numerici, scelte rapide («come la domanda stimata», «come il trimestre scorso»)? Proponi il meccanismo, non solo il principio.\n5. **Wireframe testuali** delle schermate principali, con la gerarchia di cio' che si vede prima e cio' che si apre a richiesta.\n\nNON scrivere codice. Struttura, wireframe testuali, motivazioni.",
+      "acceptance": [
+        "Struttura di navigazione nuova, con il numero di destinazioni motivato",
+        "Wireframe testuale delle schermate principali a 375px",
+        "Risposta esplicita su come si compone un turno senza girare fra sottosezioni",
+        "Meccanismo di inserimento dei numeri su telefono",
+        "Detto cosa vede chi apre il gioco la prima volta"
+      ],
+      "note": "Proposta accettata e implementata il 2026-07-29. Due regole scartate in revisione: «stabilimenti = 0» e' irraggiungibile (si parte con uno e non si possono vendere), e la stima della domanda non si ricalcola nella UI perche' il motore la espone gia'."
+    },
+    {
+      "id": "S18-2",
+      "title": "Cosa deve guidare il giocatore: urgenze, consigli e racconto dell'esito",
+      "role": "game-designer",
+      "kind": "design",
+      "status": "done",
+      "deps": [],
+      "description": "PROVE RACCOLTE GIOCANDO (coordinamento, 2026-07-29, viewport 375x812 — non opinioni):\n- Il committente ha detto testualmente: «mi risulta molto difficile al momento giocarci».\n- NAVIGAZIONE: 10 destinazioni per un turno — 6 tab in basso (Cruscotto, Decisioni, Simula, Conti, Mercato, Classifica) piu' 4 sottosezioni dentro Decisioni (Commerciale, Operations, Acquisti, Marketing).\n- La sezione ACQUISTI e' alta 2,2 schermate, ha 17 controlli e 222 parole. Le altre stanno in una schermata con 2-5 controlli.\n- PRIMA SCHERMATA in assoluto: «Configurazione partita», con cursori tipo «incidenza del costo variabile 55% del prezzo» e «volume di riferimento 10.000 unita'». E' un muro di economia prima di aver giocato un solo trimestre.\n- NIENTE GUIDA: la schermata iniziale del gioco e' un cruscotto di numeri fermi (liquidita', capacita', stabilimenti, prezzo, qualita'). Nessuna indicazione su cosa fare, cosa e' urgente, cosa conviene guardare.\n- Ho chiuso un trimestre SENZA decidere nulla e il gioco me l'ha lasciato fare: 1.370 vendite perse, e l'avviso e' arrivato DOPO. Nessun controllo preventivo tipo «non hai ordinato materie prime» o «produci meno della domanda stimata».\n- L'ESITO del trimestre e' una tabella a 4 colonne (azienda, prezzo, qualita', vendite, profitto) piu' un avviso testuale. Non c'e' un racconto di cosa e' successo e perche'.\n- Tutti i valori si impostano con CURSORI: su telefono e' difficile centrare un numero preciso, e non c'e' modo di digitarlo.\n\nVINCOLI: PWA mobile-first, larghezza di riferimento 375px. Niente Tailwind (non e' installato): si usano le classi di `apps/web/src/app/globals.css`, tema SCURO. Vedi docs/12-regole-agenti.md §5.1. Il motore e' completo e documentato in docs/16-come-funziona-il-motore.md: NON si cambiano le regole del gioco, si cambia come si gioca.\n\nIl problema non e' solo dove stanno i bottoni: e' che il gioco non ti dice mai cosa sta succedendo ne' cosa conviene guardare. Progetta la GUIDA AL GIOCATORE.\n\nServe:\n1. **Segnalazioni prima di chiudere il trimestre.** Quali controlli hanno senso («stai per produrre meno della domanda stimata», «finirai le materie prime», «la cassa andra' sotto zero»)? Per ciascuno: quando scatta esattamente, con quale soglia, e quanto e' insistente (nota, avviso, blocco). Attenzione: il gioco deve poter essere giocato male — non si impedisce una scelta, si avverte.\n2. **Il racconto dell'esito.** Dopo la chiusura, quali 3-4 frasi riassumono cosa e' successo e perche'? Devono essere generabili dai dati che il motore gia' espone (vedi docs/16-come-funziona-il-motore.md §3 e §6): vendite, vendite perse con la loro CAUSA, profitto, variazione di cassa, qualita' rispetto ai rivali. Dai i modelli di frase con le condizioni che li attivano.\n3. **Cosa guardare adesso.** Un suggerimento per trimestre, che indirizzi il giocatore alla decisione che conta di piu' in quel momento. Con quale regola si sceglie?\n4. **Il primo trimestre.** Cosa dovrebbe fare un principiante nei primi 60 secondi perche' la partita non parta gia' persa? Proponi il percorso guidato minimo.\n\nNON scrivere codice. Regole, soglie, modelli di frase.",
+      "acceptance": [
+        "Elenco dei controlli pre-chiusura con soglie esatte e livello di insistenza",
+        "Modelli di frase per il racconto dell'esito, con le condizioni che li attivano",
+        "Regola per scegliere il suggerimento del trimestre",
+        "Percorso guidato del primo trimestre",
+        "Tutto generabile dai dati che il motore gia' espone"
+      ],
+      "note": "Proposta accettata e implementata il 2026-07-29. Due regole scartate in revisione: «stabilimenti = 0» e' irraggiungibile (si parte con uno e non si possono vendere), e la stima della domanda non si ricalcola nella UI perche' il motore la espone gia'."
+    }
+  ]
+}

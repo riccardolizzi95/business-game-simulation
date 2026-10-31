@@ -1,0 +1,64 @@
+# Configurazione Supabase CLI per lo sviluppo locale (`supabase start`).
+#
+# NOTA: la sintassi del config.toml del Supabase CLI evolve tra versioni.
+# Questo file è uno scaffold scritto a mano (il CLI non è installato in questo
+# ambiente di preparazione). Prima del primo uso reale, verificare/allineare
+# con `supabase --version` e, se necessario, rigenerare con `supabase init`
+# in una cartella temporanea per confrontare i campi. Non contiene segreti:
+# solo configurazione locale/di sviluppo.
+
+project_id = "business-game"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+# Server SMTP finto per testare le email (magic link, invito lobby) in locale.
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+# In produzione questo va allineato al dominio reale della PWA (Vercel/custom
+# domain), impostato tramite variabili d'ambiente/Dashboard — mai hardcoded qui
+# per gli ambienti non locali.
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+# Provider Google OAuth: da abilitare via Dashboard Supabase in produzione
+# (Authentication → Providers → Google) inserendo client_id/secret ottenuti
+# dalla Google Cloud Console. NON inserire mai client_id/secret reali in
+# questo file: restano fuori dal repo.
+[auth.external.google]
+enabled = false
+client_id = ""
+secret = ""
+
+[edge_runtime]
+enabled = true
+policy = "oneshot"
+
+# Funzione del tick trimestrale (placeholder, vedi supabase/functions/tick/).
+# verify_jwt = false perché la funzione viene invocata dallo scheduler con un
+# segreto condiviso (TICK_CRON_SECRET), non con il JWT di un utente loggato.
+[functions.tick]
+verify_jwt = false

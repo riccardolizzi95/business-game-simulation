@@ -1,0 +1,1511 @@
+{
+  "version": 1,
+  "records": {
+    "code::openrouter:cohere/north-mini-code:free": {
+      "ok": 1,
+      "ko": 3,
+      "notes": {
+        "output-vuoto": 3
+      }
+    },
+    "code::openrouter:poolside/laguna-s-2.1:free": {
+      "ok": 3,
+      "ko": 9,
+      "notes": {
+        "nessun-blocco": 8,
+        "gate-test": 1
+      }
+    },
+    "design::openrouter:nvidia/nemotron-3-ultra-550b-a55b:free": {
+      "ok": 30,
+      "ko": 0,
+      "notes": {}
+    },
+    "code::openrouter:poolside/laguna-m.1:free": {
+      "ok": 1,
+      "ko": 10,
+      "notes": {
+        "lavoro-incompleto": 2,
+        "gate-test": 5,
+        "nessun-blocco": 2,
+        "gate-build": 1
+      }
+    },
+    "code::openrouter:nvidia/nemotron-3-super-120b-a12b:free": {
+      "ok": 1,
+      "ko": 9,
+      "notes": {
+        "gate-test": 7,
+        "nessun-blocco": 1,
+        "lavoro-incompleto": 1
+      }
+    },
+    "review::openrouter:nvidia/nemotron-3-super-120b-a12b:free": {
+      "ok": 6,
+      "ko": 0,
+      "notes": {}
+    },
+    "code::openrouter:inclusionai/ling-3.0-flash:free": {
+      "ok": 3,
+      "ko": 25,
+      "notes": {
+        "gate-test": 10,
+        "gate-build": 1,
+        "nessun-blocco": 14
+      }
+    },
+    "code::openrouter:nvidia/nemotron-3-ultra-550b-a55b:free": {
+      "ok": 1,
+      "ko": 10,
+      "notes": {
+        "gate-test": 8,
+        "lavoro-incompleto": 1,
+        "nessun-blocco": 1
+      }
+    },
+    "code::openrouter:openai/gpt-oss-20b:free": {
+      "ok": 2,
+      "ko": 18,
+      "notes": {
+        "gate-test": 10,
+        "nessun-blocco": 2,
+        "lavoro-incompleto": 6
+      }
+    },
+    "code::openrouter:google/gemma-4-31b-it:free": {
+      "ok": 0,
+      "ko": 4,
+      "notes": {
+        "gate-test": 4
+      }
+    },
+    "code::openrouter:deepseek/deepseek-v3.2": {
+      "ok": 9,
+      "ko": 101,
+      "notes": {
+        "gate-test": 92,
+        "nessun-blocco": 1,
+        "gate-build": 8
+      }
+    },
+    "code::mock (manca OPENROUTER_API_KEY per 'openrouter')": {
+      "ok": 0,
+      "ko": 4,
+      "notes": {
+        "nessun-blocco": 4
+      }
+    },
+    "design::openrouter:inclusionai/ling-3.0-flash:free": {
+      "ok": 1,
+      "ko": 0,
+      "notes": {}
+    },
+    "design::mock (manca OPENROUTER_API_KEY per 'openrouter')": {
+      "ok": 3,
+      "ko": 0,
+      "notes": {}
+    }
+  },
+  "recent": [
+    {
+      "when": "2026-07-26 16:34:31",
+      "model": "openrouter:poolside/laguna-s-2.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 16:35:04",
+      "model": "openrouter:poolside/laguna-s-2.1:free",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 16:44:54",
+      "model": "openrouter:poolside/laguna-s-2.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 16:45:53",
+      "model": "openrouter:google/gemma-4-31b-it:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 16:47:54",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 16:57:53",
+      "model": "openrouter:poolside/laguna-s-2.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 16:59:25",
+      "model": "openrouter:google/gemma-4-31b-it:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:02:27",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:03:03",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:03:33",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:04:40",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:04:47",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:05:31",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:06:05",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:07:25",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:10:25",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:10:56",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:13:45",
+      "model": "openrouter:google/gemma-4-31b-it:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:14:46",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:15:25",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 17:23:15",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:24:53",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 17:41:55",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:45:29",
+      "model": "openrouter:poolside/laguna-m.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 17:45:44",
+      "model": "openrouter:poolside/laguna-m.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 17:48:55",
+      "model": "openrouter:poolside/laguna-m.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 17:49:49",
+      "model": "openrouter:google/gemma-4-31b-it:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:07:52",
+      "model": "openrouter:poolside/laguna-m.1:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 18:10:24",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:12:07",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:16:31",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:17:07",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 18:19:35",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:25:13",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 18:27:14",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:27:28",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "review",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 18:33:22",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:37:16",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:42:23",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:44:03",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:48:01",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 18:53:44",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 18:56:58",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 19:11:54",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:16:02",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:19:28",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:24:49",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 19:27:18",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:29:05",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:33:17",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:45:51",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 19:53:26",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:02:29",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:03:32",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:07:44",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "lavoro-incompleto"
+    },
+    {
+      "when": "2026-07-26 20:08:38",
+      "model": "openrouter:openai/gpt-oss-20b:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:17:49",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:17:56",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:18:55",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:21:04",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:21:37",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "review",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:23:45",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:24:11",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:24:53",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:26:20",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:27:35",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:28:38",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:48:22",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:49:06",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:50:29",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 20:51:09",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:52:12",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:53:01",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:54:16",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:55:56",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:57:20",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 20:58:44",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-26 20:59:00",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:01:31",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:02:52",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:03:42",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:07:02",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:09:33",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:12:00",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:15:37",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-build"
+    },
+    {
+      "when": "2026-07-26 21:19:10",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:20:37",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:21:01",
+      "model": "openrouter:nvidia/nemotron-3-super-120b-a12b:free",
+      "kind": "review",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:27:40",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:28:52",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:30:24",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:33:49",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:34:16",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 21:36:29",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:05:46",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:12:20",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:25:57",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:28:16",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:35:55",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 22:36:49",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 22:37:02",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 22:41:47",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:42:00",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 22:44:03",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-26 22:53:27",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 22:54:33",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:03:43",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:04:44",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:06:54",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:08:17",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:14:25",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:16:47",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:32:45",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:32:58",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:39:07",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-26 23:52:14",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:03:30",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:05:03",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:13:37",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:14:54",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:15:32",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:15:53",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:16:37",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:17:08",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:20:23",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:21:54",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:22:15",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:22:54",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:23:30",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:24:26",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:25:06",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:26:16",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:27:32",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:28:21",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:29:25",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:30:34",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:31:48",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:41:33",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:43:19",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:44:21",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:44:37",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:47:50",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:49:12",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:49:35",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:49:55",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:50:15",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:50:43",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:53:51",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 00:55:53",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:04:56",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:06:11",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:06:36",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:08:21",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:09:21",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:13:06",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:15:28",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:18:33",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:22:30",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:24:44",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:26:53",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:40:49",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:44:51",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:46:24",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 01:47:05",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:02:14",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:09:30",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:10:42",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:15:11",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:15:58",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:18:18",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:18:53",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:21:17",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:22:59",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:27:16",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:30:34",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:32:17",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:33:00",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:38:27",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:43:53",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 02:46:05",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": false,
+      "note": "gate-test"
+    },
+    {
+      "when": "2026-07-27 10:31:30",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-27 10:31:30",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-27 10:31:30",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-27 10:31:30",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "code",
+      "ok": false,
+      "note": "nessun-blocco"
+    },
+    {
+      "when": "2026-07-28 19:54:25",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-28 19:57:31",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-28 20:01:02",
+      "model": "openrouter:deepseek/deepseek-v3.2",
+      "kind": "code",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-28 21:04:07",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-28 21:05:00",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-28 21:10:00",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 18:33:00",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 18:33:06",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 18:34:45",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 18:34:56",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 18:40:01",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 21:10:15",
+      "model": "openrouter:inclusionai/ling-3.0-flash:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-07-29 21:10:21",
+      "model": "openrouter:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-08-03 10:31:34",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-08-03 10:31:34",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "when": "2026-08-03 10:31:34",
+      "model": "mock (manca OPENROUTER_API_KEY per 'openrouter')",
+      "kind": "design",
+      "ok": true,
+      "note": ""
+    }
+  ]
+}

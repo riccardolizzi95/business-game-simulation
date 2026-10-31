@@ -1,0 +1,45 @@
+name: Orchestratore agenti (run)
+
+# Fa girare il team di agenti in cloud: processa i task 'todo' della board, genera le proposte
+# e le committa. Richiede il secret OPENROUTER_API_KEY (Settings → Secrets → Actions).
+# Nota: se non ci sono task 'todo', il run non fa nulla (comportamento sicuro).
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_iters:
+        description: "Numero massimo di task in questo run"
+        default: "4"
+  schedule:
+    - cron: "0 7 * * 1"         # ogni lunedì alle 07:00 UTC (conservativo; regolabile)
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Esegui l'orchestratore (live)
+        env:
+          ORCH_MODE: live
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ORCH_MAX_ITERS: ${{ github.event.inputs.max_iters || '4' }}
+        run: python3 orchestrator/run.py
+
+      - name: Committa le proposte generate
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "agent-orchestrator[bot]"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "orchestratore: proposte generate (run schedulato/manuale)"
+            git push
+          else
+            echo "Nessuna nuova proposta (nessun task 'todo')."
+          fi

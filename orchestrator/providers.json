@@ -1,0 +1,45 @@
+{
+  "_guida": "Registro dei provider LLM (tutti OpenAI-compatible). Aggiungine a piacere. La API key NON va qui: si legge dalla variabile d'ambiente 'api_key_env'. In models.json un modello si scrive 'provider:modello' usando le chiavi qui sotto.",
+  "providers": {
+    "nvidia": {
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "api_key_env": "NVIDIA_API_KEY",
+      "note": "NVIDIA NIM — ~16 modelli gratis, ~40 req/min (llama, nemotron, qwen, deepseek...)"
+    },
+    "deepseek": {
+      "base_url": "https://api.deepseek.com/v1",
+      "api_key_env": "DEEPSEEK_API_KEY",
+      "note": "DeepSeek (CN) — deepseek-chat, deepseek-reasoner. Economico e forte nel ragionamento."
+    },
+    "openrouter": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY",
+      "note": "Aggregatore: centinaia di modelli con UNA chiave. Molti disponibili come ':free'."
+    },
+    "together": {
+      "base_url": "https://api.together.xyz/v1",
+      "api_key_env": "TOGETHER_API_KEY",
+      "note": "Together AI — molti modelli open source (Qwen, Llama, DeepSeek...)."
+    },
+    "groq": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key_env": "GROQ_API_KEY",
+      "note": "Groq — inferenza velocissima, free tier generoso (llama, qwen...)."
+    },
+    "moonshot": {
+      "base_url": "https://api.moonshot.cn/v1",
+      "api_key_env": "MOONSHOT_API_KEY",
+      "note": "Moonshot Kimi (CN) — ottimo contesto lungo. Verifica l'endpoint nella tua area."
+    },
+    "zhipu": {
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "api_key_env": "ZHIPU_API_KEY",
+      "note": "Zhipu GLM (CN) — famiglia GLM. Verifica l'endpoint nella tua area."
+    },
+    "ollama": {
+      "base_url": "http://localhost:11434/v1",
+      "api_key_env": "",
+      "note": "LOCALE, offline, nessuna chiave. Richiede Ollama installato con i modelli scaricati."
+    }
+  }
+}

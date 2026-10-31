@@ -1,0 +1,36 @@
+name: Model Curator (autonomo)
+
+# Gira in autonomia e schedulata: controlla i modelli, sostituisce quelli non più gratuiti,
+# committa i cambi e scrive le notifiche. Non serve alcuna API key (il catalogo modelli è pubblico).
+
+on:
+  schedule:
+    - cron: "0 6 * * *"        # ogni giorno alle 06:00 UTC
+  workflow_dispatch:            # avvio manuale dalla tab Actions
+
+permissions:
+  contents: write               # per committare gli aggiornamenti
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Esegui il Model Curator
+        run: python3 orchestrator/curator.py
+
+      - name: Committa eventuali aggiornamenti
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "model-curator[bot]"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "curator: aggiornamento automatico modelli + notifiche"
+            git push
+          else
+            echo "Nessun cambiamento ai modelli."
+          fi

@@ -1,0 +1,12 @@
+# Cosa NON serve a Vercel per buildare/servire la PWA (apps/web).
+# Riduce il contesto caricato in build senza toccare come gira il codice.
+# Nota: la Root Directory del progetto Vercel va impostata a "apps/web"
+# nelle impostazioni del progetto (vedi docs/09-piattaforma-hosting.md);
+# questo file agisce comunque a livello di repo.
+
+orchestrator/
+docs/
+project-management/
+.github/
+supabase/functions/
+*.md

@@ -1,0 +1,54 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+dist/
+
+# env & secrets (mai committare chiavi: Supabase service key, NVIDIA API key, ecc.)
+.env
+.env*.local
+.env.local
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+.vscode/
+.idea/
+
+# test
+coverage/
+
+# python / orchestratore
+__pycache__/
+*.pyc
+orchestrator/runs/
+orchestrator/.daemon_state.json
+orchestrator/.curator_last_run
+orchestrator/curator-cron.log
+orchestrator/requirements/iterations/
+orchestrator/requirements/state.json
+orchestrator/requirements/it-feedback.md
+orchestrator/requirements/*.bak.md
+orchestrator/requirements/*.docx
+
+# worktree isolati degli agenti dell'orchestratore (branch agent/*)
+.orchestrator-work/
+orchestrator/BRIEFING.md
+
+# typescript (build info incrementale: fa nascondere errori se committato)
+*.tsbuildinfo
+
+# build isolata del gate (non deve toccare il .next del dev server)
+.next-gate/
+
+# versione stampabile generata (HTML+PDF): si rigenera con scripts/genera-guida-motore.sh
+docs/stampa/*.pdf
+docs/stampa/*.html
